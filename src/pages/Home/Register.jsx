@@ -9,9 +9,7 @@ function Register() {
         email: '',
         password: '',
     })
-    const [error, setError] = useState(
-        null
-    )
+    const [error, setError] = useState()
     const navegate = useNavigate()
     const { signup } = useAuth()
 
@@ -27,11 +25,10 @@ function Register() {
         e.preventDefault()
         try {
             await signup(user.email, user.password);
-            navegate('/')
+            //navegate('/')
         } catch (error) {
-            setError({
-                mesage: error.message
-            })
+            setError(error.message)
+            console.log(error.message)
         }
 
     }
@@ -39,7 +36,7 @@ function Register() {
 
     return (
         <div>
-            {error.mesage && <h1>{error.mesage}</h1>}
+            {error && <h1>{error}</h1>}
             <form onSubmit={handelSubmit}>
                 <h1>Register</h1>
                 <input type="email" placeholder="email" onChange={handleChange} />
