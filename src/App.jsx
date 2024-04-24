@@ -15,7 +15,6 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register></Register>} />
         <Route path='*' element={<h1>Not Found</h1>} />
-
       </Routes>
     </AuthProvider>
   )

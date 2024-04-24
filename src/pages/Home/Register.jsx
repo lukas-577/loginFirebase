@@ -9,7 +9,7 @@ function Register() {
         email: '',
         password: '',
     })
-    const [error, setError] = useState()
+    const [error, setError] = useState('')
     const navegate = useNavigate()
     const { signup } = useAuth()
 
@@ -24,11 +24,16 @@ function Register() {
     const handelSubmit = async (e) => {
         e.preventDefault()
         try {
-            await signup(user.email, user.password);
-            //navegate('/')
+            const registrado = await signup(user.email, user.password);
+            if(registrado){
+                navegate('/')
+            }
+            else{
+                console.log("Error")
+            }
         } catch (error) {
             setError(error.message)
-            console.log(error.message)
+            console.log("error:"+ error.message)
         }
 
     }
