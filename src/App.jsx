@@ -4,6 +4,7 @@ import Home from './pages/Home/Home'
 import Login from './pages/Home/Login'
 import { AuthProvider } from './context/authContext'
 import Register from './pages/Home/Register'
+import { ProtectedRute } from './components/ProtectedRute'
 
 
 
@@ -11,7 +12,12 @@ function App() {
   return (
     <AuthProvider>
       <Routes>
-        <Route path='/' element={<Home />} />
+        <Route path='/' element={
+        <ProtectedRute>
+          <Home />
+        </ProtectedRute>
+        
+        } />
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register></Register>} />
         <Route path='*' element={<h1>Not Found</h1>} />

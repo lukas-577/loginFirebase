@@ -14,25 +14,33 @@ function Register() {
     const { signup } = useAuth()
 
 
-    const handleChange = ({ target: { type, value } }) => {
+    const handleChange = ({ target: {name, value } }) => {
         setUser({
             ...user,
-            [type]: value
+            [name]: value
         })
     }
 
     const handelSubmit = async (e) => {
         e.preventDefault()
+        setError("");
         try {
-            const registrado = await signup(user.email, user.password);
-            if(registrado){
-                navegate('/')
-            }
-            else{
-                console.log("Error")
-            }
+            await signup(user.email, user.password);
+            navegate('/')
         } catch (error) {
-            setError(error.message)
+            //setError(error.message)
+            if(error.code === "auth/invalid-email"){
+                setError("correo invalido")
+            }
+            if(error.code === "auth/missing-password"){
+                setError("no ingreso el password")
+            }
+            if(error.code === "auth/weak-password"){
+                setError("la password tiene que ser mayor a 6 caracteres")
+            }
+            if(error.code === "auth/email-already-in-use"){
+                setError("el usuario ya esta registrado")
+            }
             console.log("error:"+ error.message)
         }
 
@@ -44,8 +52,8 @@ function Register() {
             {error && <h1>{error}</h1>}
             <form onSubmit={handelSubmit}>
                 <h1>Register</h1>
-                <input type="email" placeholder="email" onChange={handleChange} />
-                <input type="password" placeholder="password" onChange={handleChange} />
+                <input type="email" name="email" placeholder="email" onChange={handleChange} />
+                <input type="password" name="password" placeholder="*********" onChange={handleChange} />
                 <button type="submit">Register</button>
             </form>
         </div>
