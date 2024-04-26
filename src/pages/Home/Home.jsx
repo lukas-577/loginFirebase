@@ -1,5 +1,6 @@
 import React from 'react'
 import { useAuth } from '../../context/AuthContext'
+import NavBar from '../../components/NavBar'
 
 function Home() {
     const { user, logout } = useAuth()
@@ -16,14 +17,21 @@ function Home() {
 
 
     return (
-        <><h1>bienvenido {user.email}</h1>
-            <div>
-                <h1 className='btn'>home</h1>
-
-
-                <button onClick={handleLogout}>Logaut</button>
+        <>
+            <NavBar></NavBar>
+            <div className="w-full max-w-xs m-auto align-middle">
+                <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+                    <p className="text-xl mb-4">welcome {user.displayName || user.email}</p>
+                    <button
+                        className="btn base-300"
+                        onClick={handleLogout}
+                    >
+                        logout
+                    </button>
+                </div>
             </div>
         </>
+
     )
 }
 

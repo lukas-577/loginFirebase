@@ -2,6 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import { useAuth } from '../../context/AuthContext'
 import { useNavigate } from 'react-router-dom'
+import NavBar from '../../components/NavBar'
 
 function Login() {
 
@@ -63,11 +64,11 @@ function Login() {
 
   return (
     <>
-
-      <div className="hero min-h-screen bg-base-200">
+      <NavBar></NavBar>
+      <div className="hero h-screen bg-base-200">
         <div className="hero-content flex-col lg:flex-row-reverse">
           <div className="text-center lg:text-left">
-            <h1 className="text-5xl font-bold">Macrofitas</h1>
+            <h1 className="text-5xl font-bold">Login</h1>
             <p className="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
           </div>
           <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
@@ -92,10 +93,10 @@ function Login() {
                 </label>
               </div>
               <div className="form-control mt-6">
-                <button className="btn btn-primary" type="submit">Login</button>
+                <button className="btn bg-green-500" type="submit">Login</button>
 
               </div>
-              <button className="btn btn-secondary" onClick={handleGoogleSignin}>Login Google</button>
+              <button className="btn base-300" onClick={handleGoogleSignin}>Login Google</button>
             </form>
           </div>
         </div>
