@@ -1,26 +1,29 @@
 import React from 'react'
-import { useAuth } from '../../context/authContext'
+import { useAuth } from '../../context/AuthContext'
 
 function Home() {
-    const { user, logout, loading } = useAuth()
+    const { user, logout } = useAuth()
     console.log(user)
-    const navegate = useNavigate()
 
     const handleLogout = async ()=>{
-        await logout()
-        
+        try{
+            await logout();
+        }catch(error){
+            console.log(error.message)
+        }
+       
     }
 
-    if(loading == true) {
-        return <h1>bienvenido {user.email}</h1>
-    }
 
     return (
-        <div><h1 className='btn'>home</h1>
+        <><h1>bienvenido {user.email}</h1>
+        <div>
+            <h1 className='btn'>home</h1>
             
 
             <button onClick={handleLogout}>Logaut</button>
         </div>
+        </>
     )
 }
 

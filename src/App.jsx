@@ -2,7 +2,7 @@ import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Home from './pages/Home/Home'
 import Login from './pages/Home/Login'
-import { AuthProvider } from './context/authContext'
+import { AuthProvider } from './context/AuthContext'
 import Register from './pages/Home/Register'
 import { ProtectedRute } from './components/ProtectedRute'
 
