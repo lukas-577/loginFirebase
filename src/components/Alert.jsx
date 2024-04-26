@@ -1,5 +1,5 @@
-export function Alert({message}){
-    return(
+export function Alert({ message }) {
+    return (
         <div>
             <span>{message}</span>
 

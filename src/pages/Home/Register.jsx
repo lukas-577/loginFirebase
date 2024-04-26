@@ -14,7 +14,7 @@ function Register() {
     const { signup } = useAuth()
 
 
-    const handleChange = ({ target: {name, value } }) => {
+    const handleChange = ({ target: { name, value } }) => {
         setUser({
             ...user,
             [name]: value
@@ -29,19 +29,19 @@ function Register() {
             navegate('/')
         } catch (error) {
             //setError(error.message)
-            if(error.code === "auth/invalid-email"){
+            if (error.code === "auth/invalid-email") {
                 setError("correo invalido")
             }
-            if(error.code === "auth/missing-password"){
+            if (error.code === "auth/missing-password") {
                 setError("no ingreso el password")
             }
-            if(error.code === "auth/weak-password"){
+            if (error.code === "auth/weak-password") {
                 setError("la password tiene que ser mayor a 6 caracteres")
             }
-            if(error.code === "auth/email-already-in-use"){
+            if (error.code === "auth/email-already-in-use") {
                 setError("el usuario ya esta registrado")
             }
-            console.log("error:"+ error.message)
+            console.log("error:" + error.message)
         }
 
     }
