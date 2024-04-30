@@ -64,7 +64,6 @@ function Login() {
 
   return (
     <>
-      <NavBar></NavBar>
       <div className="hero h-screen bg-base-200">
         <div className="hero-content flex-col lg:flex-row-reverse">
           <div className="text-center lg:text-left">
