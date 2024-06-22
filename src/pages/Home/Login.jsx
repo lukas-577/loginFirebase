@@ -92,7 +92,7 @@ function Login() {
                 </label>
               </div>
               <div className="form-control mt-6">
-                <button className="btn bg-green-500" type="submit">Login</button>
+                <button className="btn bg-green-500 text-white hover:bg-green-700 hover:text-white" type="submit">Login</button>
 
               </div>
               <button className="btn base-300" onClick={handleGoogleSignin}>Login Google</button>
