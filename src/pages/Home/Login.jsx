@@ -3,6 +3,10 @@ import { useState } from 'react'
 import { useAuth } from '../../context/AuthContext'
 import { useNavigate } from 'react-router-dom'
 import NavBar from '../../components/NavBar'
+import { FcGoogle } from 'react-icons/fc' 
+import {Icon} from 'react-icons-kit';
+import {eyeOff} from 'react-icons-kit/feather/eyeOff';
+import {eye} from 'react-icons-kit/feather/eye'
 
 function Login() {
 
@@ -13,6 +17,8 @@ function Login() {
   const [error, setError] = useState('')
   const navegate = useNavigate()
   const { login, loginWitchGoogle } = useAuth()
+  const [icon, setIcon] = useState(eyeOff);
+  const [type, setType] = useState('password');
 
 
   const handleChange = ({ target: { name, value } }) => {
@@ -60,6 +66,15 @@ function Login() {
     }
 
   }
+  const handleToggle = () => {
+    if (type==='password'){
+       setIcon(eye);
+       setType('text')
+    } else {
+       setIcon(eyeOff)
+       setType('password')
+    }
+ }
 
 
   return (
@@ -77,25 +92,44 @@ function Login() {
             </div>}
             <form className="card-body" onSubmit={handelSubmit}>
               <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Email</span>
-                </label>
+                <h5 className="text-lg text-center font-bold">Inciar Sesión</h5>
+              </div>
+              <div className="form-control mt-5">
                 <input type="email" name="email" placeholder="email" className="input input-bordered" required onChange={handleChange} />
               </div>
               <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Password</span>
-                </label>
-                <input type="password" name="password" placeholder="password" className="input input-bordered" required onChange={handleChange} />
-                <label className="label">
-                  <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
-                </label>
+                <div className="relative">
+                  <input 
+                    type={type} 
+                    name="password" 
+                    placeholder="password" 
+                    className="input input-bordered w-full pr-10" 
+                    required onChange={handleChange} 
+                  />
+                  <button 
+                    type="button" 
+                    className="absolute right-0 h-10 w-10" 
+                    onClick={handleToggle}
+                  >
+                   <Icon icon={icon} size={18} />
+                  </button>
+                  <label className="label">
+                    <a href="/forgot-password" className="label-text-alt link link-hover">Olvidaste tu contraseña?</a>
+                  </label>
+                </div>
               </div>
               <div className="form-control mt-6">
                 <button className="btn bg-green-500 text-white hover:bg-green-700 hover:text-white" type="submit">Login</button>
-
               </div>
-              <button className="btn base-300" onClick={handleGoogleSignin}>Login Google</button>
+              <button className="btn base-300" onClick={handleGoogleSignin}>
+                <FcGoogle size={24} />
+                <span className="ml-2">Login Google</span>
+              </button>
+              <div className="text-center mt-3">
+              <span cla ssName="label">
+                <a href="/register" className="link link-hover">Crear cuenta</a>
+              </span>
+              </div>
             </form>
           </div>
         </div>

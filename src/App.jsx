@@ -6,6 +6,8 @@ import { AuthProvider } from './context/AuthContext'
 import Register from './pages/Home/Register'
 import { ProtectedRute } from './components/ProtectedRute'
 import NavBar from './components/NavBar'
+import ForgotPassword from './pages/Home/Forgotpass'
+import Confirmation from './pages/Home/Confirmation'
 
 
 
@@ -24,6 +26,8 @@ function App() {
             } />
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register></Register>} />
+          <Route path='/forgot-password' element={<ForgotPassword />} />
+          <Route path='/confirmation' element={<Confirmation />} />
           <Route path='*' element={<h1>Not Found</h1>} />
         </Routes>
       </AuthProvider>
