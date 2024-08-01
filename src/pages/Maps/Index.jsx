@@ -27,9 +27,11 @@ function Maps() {
             <div className="w-full max-w-xs m-auto align-middle">
                 <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
                     <p className="text-xl mb-4">Maps</p>
+
                     {!loading && position ? (
                         <ContenedorMaps position={position}></ContenedorMaps>
                     ) : (<p>Cargando!!!</p>)}
+
                 </div>
             </div>
         </>

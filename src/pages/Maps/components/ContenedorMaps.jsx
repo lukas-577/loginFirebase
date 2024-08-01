@@ -12,7 +12,7 @@ function ContenedorMaps({ position }) {
             <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png">
 
             </TileLayer>
-            <Markers></Markers>
+            <Markers position={position}></Markers>
         </MapContainer>
     )
 }
