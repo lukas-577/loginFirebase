@@ -1,13 +1,13 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Home from './pages/Home/Home'
-import Login from './pages/Home/Login'
+import Login from './pages/Home/components/Login'
 import { AuthProvider } from './context/AuthContext'
-import Register from './pages/Home/Register'
+import Register from './pages/Home/components/Register'
 import { ProtectedRute } from './components/ProtectedRute'
 import NavBar from './components/NavBar'
-import ForgotPassword from './pages/Home/Forgotpass'
-import Confirmation from './pages/Home/Confirmation'
+import ForgotPassword from './pages/Home/components/Forgotpass'
+import Confirmation from './pages/Home/components/Confirmation'
 
 
 

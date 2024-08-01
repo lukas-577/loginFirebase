@@ -1,6 +1,7 @@
 import React from 'react'
 import { useAuth } from '../../context/AuthContext'
 import NavBar from '../../components/NavBar'
+import Maps from '../Maps/Index'
 
 function Home() {
     const { user, logout } = useAuth()
@@ -30,6 +31,7 @@ function Home() {
                     </button>
                 </div>
             </div>
+            <Maps></Maps>
         </>
 
     )

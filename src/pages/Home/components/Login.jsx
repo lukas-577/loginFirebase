@@ -1,12 +1,11 @@
 import React from 'react'
 import { useState } from 'react'
-import { useAuth } from '../../context/AuthContext'
+import { useAuth } from '../../../context/AuthContext'
 import { useNavigate } from 'react-router-dom'
-import NavBar from '../../components/NavBar'
-import { FcGoogle } from 'react-icons/fc' 
-import {Icon} from 'react-icons-kit';
-import {eyeOff} from 'react-icons-kit/feather/eyeOff';
-import {eye} from 'react-icons-kit/feather/eye'
+import { FcGoogle } from 'react-icons/fc'
+import { Icon } from 'react-icons-kit';
+import { eyeOff } from 'react-icons-kit/feather/eyeOff';
+import { eye } from 'react-icons-kit/feather/eye'
 
 function Login() {
 
@@ -67,14 +66,14 @@ function Login() {
 
   }
   const handleToggle = () => {
-    if (type==='password'){
-       setIcon(eye);
-       setType('text')
+    if (type === 'password') {
+      setIcon(eye);
+      setType('text')
     } else {
-       setIcon(eyeOff)
-       setType('password')
+      setIcon(eyeOff)
+      setType('password')
     }
- }
+  }
 
 
   return (
@@ -99,19 +98,19 @@ function Login() {
               </div>
               <div className="form-control">
                 <div className="relative">
-                  <input 
-                    type={type} 
-                    name="password" 
-                    placeholder="password" 
-                    className="input input-bordered w-full pr-10" 
-                    required onChange={handleChange} 
+                  <input
+                    type={type}
+                    name="password"
+                    placeholder="password"
+                    className="input input-bordered w-full pr-10"
+                    required onChange={handleChange}
                   />
-                  <button 
-                    type="button" 
-                    className="absolute right-0 h-10 w-10" 
+                  <button
+                    type="button"
+                    className="absolute right-0 h-10 w-10"
                     onClick={handleToggle}
                   >
-                   <Icon icon={icon} size={18} />
+                    <Icon icon={icon} size={18} />
                   </button>
                   <label className="label">
                     <a href="/forgot-password" className="label-text-alt link link-hover">Olvidaste tu contraseña?</a>
@@ -126,9 +125,9 @@ function Login() {
                 <span className="ml-2">Login Google</span>
               </button>
               <div className="text-center mt-3">
-              <span cla ssName="label">
-                <a href="/register" className="link link-hover">Crear cuenta</a>
-              </span>
+                <span cla ssName="label">
+                  <a href="/register" className="link link-hover">Crear cuenta</a>
+                </span>
               </div>
             </form>
           </div>

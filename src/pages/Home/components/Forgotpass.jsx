@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useAuth } from '../../context/AuthContext'
+import { useAuth } from '../../../context/AuthContext'
 import { useNavigate } from 'react-router-dom';
 
 function ForgotPassword() {
@@ -37,14 +37,14 @@ function ForgotPassword() {
               <h5 className="text-lg text-center font-bold">Restablecer Contraseña</h5>
             </div>
             <div className="form-control mt-5">
-              <input 
-                type="email" 
-                name="email" 
-                placeholder="email" 
-                className="input input-bordered" 
-                required 
+              <input
+                type="email"
+                name="email"
+                placeholder="email"
+                className="input input-bordered"
+                required
                 value={email}
-                onChange={(e) => setEmail(e.target.value)} 
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div className="form-control mt-6">
