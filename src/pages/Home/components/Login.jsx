@@ -80,9 +80,14 @@ function Login() {
     <>
       <div className="hero h-screen bg-base-200">
         <div className="hero-content flex-col lg:flex-row-reverse">
-          <div className="text-center lg:text-left">
+          <div className="text-left lg:text-left">
             <h1 className="text-5xl font-bold">Login</h1>
-            <p className="py-6">Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem quasi. In deleniti eaque aut repudiandae et a id nisi.</p>
+            <p className="py-6">Esta aplicación ha sido desarrollada con el objetivo de facilitar el
+              monitoreo de la calidad del agua de la cuenca del río Rahue, Osorno
+              Chile (40°34’40’’S; 73°07’05’’O). La calidad de agua entregada a
+              través de esta herramienta está condicionada a dicha área de
+              estudio y a las plantas acuáticas presentes en ella. El uso fuera de
+              esta zona puede generar resultados poco fiables.</p>
           </div>
           <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
             {error && <div role="alert" className="alert alert-error">

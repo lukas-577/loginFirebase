@@ -24,16 +24,10 @@ function Maps() {
 
     return (
         <>
-            <div className="w-full items-center justify-center">
-                <div className=" max-w-4xl bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-
-                    {!loading && position ? (
-                        <ContenedorMaps position={position}>
-                        </ContenedorMaps>
-                    ) : (<p>Cargando!!!</p>)}
-
-                </div>
-            </div>
+            {!loading && position ? (
+                <ContenedorMaps position={position}>
+                </ContenedorMaps>
+            ) : (<p>Cargando!!!</p>)}
         </>
     )
 }
