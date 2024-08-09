@@ -1,6 +1,12 @@
 import React, { useRef, useCallback, useState } from 'react';
 import Webcam from 'react-webcam';
 
+const videoConstraints = {
+  width: 1280,
+  height: 720,
+  facingMode: 'user'
+}
+
 const Camera = () => {
   const webcamRef = useRef(null);
   const [screenshot, setScreenshot] = useState(null);
@@ -17,12 +23,8 @@ const Camera = () => {
         audio={false}
         ref={webcamRef}
         screenshotFormat="image/jpeg"
-        width={1280}
-        videoConstraints={{
-          width: 1280,
-          height: 720,
-          facingMode: 'user',
-        }}
+        width={1980}
+        videoConstraints={{videoConstraints}}
       />
       <button onClick={capture}>Toma la foto</button>
       {screenshot && <img src={screenshot} alt="Screenshot" />}
