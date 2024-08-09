@@ -8,6 +8,7 @@ import { ProtectedRute } from './components/ProtectedRute'
 import NavBar from './components/NavBar'
 import ForgotPassword from './pages/Home/components/Forgotpass'
 import Confirmation from './pages/Home/components/Confirmation'
+import CameraPage from './pages/Camera/CameraPage'
 
 
 
@@ -28,6 +29,7 @@ function App() {
           <Route path='/register' element={<Register></Register>} />
           <Route path='/forgot-password' element={<ForgotPassword />} />
           <Route path='/confirmation' element={<Confirmation />} />
+          <Route path="/camera" element={<CameraPage />} />
           <Route path='*' element={<h1>Not Found</h1>} />
         </Routes>
       </AuthProvider>
