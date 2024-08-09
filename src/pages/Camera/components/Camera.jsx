@@ -26,7 +26,7 @@ const Camera = () => {
         width={1980}
         videoConstraints={{videoConstraints}}
       />
-      <button onClick={capture}>Toma la foto</button>
+      <button onClick={capture} className="bg-blue-500 text-white p-3 rounded-lg shadow-lg">Toma la foto</button>
       {screenshot && <img src={screenshot} alt="Screenshot" />}
     </div>
   );
