@@ -18,7 +18,6 @@ const Camera = () => {
 
   return (
     <div>
-      <h2>Camara</h2>
       <Webcam
         audio={false}
         ref={webcamRef}
