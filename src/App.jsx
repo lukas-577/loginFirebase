@@ -9,6 +9,8 @@ import NavBar from './components/NavBar'
 import ForgotPassword from './pages/Home/components/Forgotpass'
 import Confirmation from './pages/Home/components/Confirmation'
 import CameraPage from './pages/Camera/CameraPage'
+import { PhotoProvider } from './context/PhotoContext'
+import PhotoReviewPage from './pages/Camera/PhotoReviewPage'
 
 
 
@@ -17,21 +19,24 @@ function App() {
     <div className=" h-screen bg-base-200 flex">
 
       <AuthProvider>
-        <Routes>
-          <Route
-            path='/'
-            element={
-              <ProtectedRute>
-                <Home />
-              </ProtectedRute>
-            } />
-          <Route path='/login' element={<Login />} />
-          <Route path='/register' element={<Register></Register>} />
-          <Route path='/forgot-password' element={<ForgotPassword />} />
-          <Route path='/confirmation' element={<Confirmation />} />
-          <Route path="/camera" element={<CameraPage />} />
-          <Route path='*' element={<h1>Not Found</h1>} />
-        </Routes>
+        <PhotoProvider>
+          <Routes>
+            <Route
+              path='/'
+              element={
+                <ProtectedRute>
+                  <Home />
+                </ProtectedRute>
+              } />
+            <Route path='/login' element={<Login />} />
+            <Route path='/register' element={<Register></Register>} />
+            <Route path='/forgot-password' element={<ForgotPassword />} />
+            <Route path='/confirmation' element={<Confirmation />} />
+            <Route path="/camera" element={<CameraPage />} />
+            <Route path="/review-photo" element={<PhotoReviewPage />} />
+            <Route path='*' element={<h1>Not Found</h1>} />
+          </Routes>
+        </PhotoProvider>
       </AuthProvider>
     </div>
   )

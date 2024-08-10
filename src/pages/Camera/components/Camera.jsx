@@ -7,14 +7,13 @@ const videoConstraints = {
   facingMode: 'user'
 }
 
-const Camera = () => {
+const Camera = ({ onCapture }) => {
   const webcamRef = useRef(null);
-  const [screenshot, setScreenshot] = useState(null);
 
-  const capture = useCallback(() => {
-    const imageSrc = webcamRef.current.getScreenshot();
-    setScreenshot(imageSrc);
-  }, [webcamRef]);
+    const capturePhoto = useCallback(() => {
+        const imageSrc = webcamRef.current.getScreenshot();
+        onCapture(imageSrc);
+    }, [onCapture]);
 
   return (
     <div>
@@ -25,8 +24,7 @@ const Camera = () => {
         width={1980}
         videoConstraints={{videoConstraints}}
       />
-      <button onClick={capture} className="bg-blue-500 text-white p-3 rounded-lg shadow-lg">Toma la foto</button>
-      {screenshot && <img src={screenshot} alt="Screenshot" />}
+      <button onClick={capturePhoto} className="bg-blue-500 text-white p-3 rounded-lg shadow-lg">Toma la foto</button>
     </div>
   );
 };
