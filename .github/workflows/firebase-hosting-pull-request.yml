@@ -5,7 +5,7 @@ name: Deploy to Firebase Hosting on PR
 on:
   push:
     branches:
-      - main
+      - m # por el momento lo dejare silenciado para que no se ejecute en cada push debe ser main
 jobs:
   deploy:
     runs-on: ubuntu-latest
