@@ -11,6 +11,7 @@ import Confirmation from './pages/Home/components/Confirmation'
 import CameraPage from './pages/Camera/CameraPage'
 import { PhotoProvider } from './context/PhotoContext'
 import PhotoReviewPage from './pages/Camera/PhotoReviewPage'
+import Profile from './pages/Profile/Profile'
 
 
 
@@ -34,6 +35,7 @@ function App() {
             <Route path='/confirmation' element={<Confirmation />} />
             <Route path="/camera" element={<CameraPage />} />
             <Route path="/review-photo" element={<PhotoReviewPage />} />
+            <Route path='/profile' element={<Profile />} />
             <Route path='*' element={<h1>Not Found</h1>} />
           </Routes>
         </PhotoProvider>
