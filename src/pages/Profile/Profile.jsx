@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import NavBar from '../../components/NavBar';
 
 function Profile() {
   const [user, setUser] = useState(null);
@@ -21,10 +22,13 @@ function Profile() {
   }
 
   return (
+    <>
+    <div className='z-50 fixed w-full bg-base-100'>
+      <NavBar user={user}></NavBar>
+    </div>
     <div className="flex justify-center items-start h-screen w-screen"> {/* Ocupa toda la pantalla y centra el contenido horizontalmente */}
       {user ? (
-        <div className="flex flex-col items-center mt-4"> {/* Centra la imagen y el texto */}
-          <h1 className="mb-4 text-center">Perfil</h1>
+        <div className="mt-20 flex flex-col items-center mt-4"> {/* Centra la imagen y el texto */}
           <img
             className="rounded-full h-20 w-20"
             src={user.photoURL}
@@ -37,6 +41,7 @@ function Profile() {
         <p>No has iniciado sesión.</p>
       )}
     </div>
+    </>
   );
 }
 
