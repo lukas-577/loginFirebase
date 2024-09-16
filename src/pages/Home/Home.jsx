@@ -24,11 +24,11 @@ function Home() {
             <div className="w-full z-0">
                 <Maps></Maps>
             </div>
-            
+
             <div className="fixed bottom-0 right-0 m-5">
-                <button 
-                    onClick={handleCameraClick} 
-                    className="bg-blue-500 text-white p-3 rounded-lg shadow-lg"
+                <button
+                    onClick={handleCameraClick}
+                    className="btn btn-success"
                 >
                     Usa la Camara
                 </button>

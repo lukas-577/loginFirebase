@@ -31,12 +31,26 @@ function App() {
                   <Home />
                 </ProtectedRute>
               } />
+            <Route
+              path='/camera'
+              element={
+                <ProtectedRute>
+                  <CameraPage />
+                </ProtectedRute>
+              }
+            />
+            <Route
+              path='/review-photo'
+              element={
+                <ProtectedRute>
+                  <PhotoReviewPage />
+                </ProtectedRute>
+              }
+            /> 
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register></Register>} />
             <Route path='/forgot-password' element={<ForgotPassword />} />
             <Route path='/confirmation' element={<Confirmation />} />
-            <Route path="/camera" element={<CameraPage />} />
-            <Route path="/review-photo" element={<PhotoReviewPage />} />
             <Route path='/profile' element={<Profile />} />
             <Route path='/afiliacion' element={<Afiliacion />} />
             <Route path='/ubicacion' element={<Ubicacion />} />
