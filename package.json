@@ -17,6 +17,7 @@
     "react-icons-kit": "^2.0.0",
     "react-leaflet": "^4.2.1",
     "react-router-dom": "^6.22.3",
+    "react-select": "^5.8.0",
     "react-webcam": "^7.2.0"
   },
   "devDependencies": {

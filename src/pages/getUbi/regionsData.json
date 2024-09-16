@@ -1,0 +1,18 @@
+{
+  "Arica y Parinacota": ["Arica", "Camarones", "Putre", "General Lagos"],
+  "Tarapacá": ["Iquique", "Alto Hospicio", "Pica", "Pozo Almonte"],
+  "Antofagasta": ["Antofagasta", "Mejillones", "Taltal", "Calama", "San Pedro de Atacama"],
+  "Atacama": ["Copiapó", "Caldera", "Tierra Amarilla", "Vallenar", "Freirina", "Huasco"],
+  "Coquimbo": ["La Serena", "Coquimbo", "Andacollo", "Vicuña", "Ovalle", "Combarbalá", "Monte Patria", "Punitaqui", "Río Hurtado"],
+  "Valparaíso": ["Valparaíso", "Viña del Mar", "Quilpué", "Villa Alemana", "Los Andes", "San Antonio", "La Calera", "La Cruz", "Nogales", "Olmué"],
+  "Metropolitana de Santiago": ["Santiago", "Las Condes", "Providencia", "Ñuñoa", "Macul", "La Florida", "Peñalolén", "San Miguel", "Maipú", "Pudahuel", "Recoleta", "San Bernardo", "Cerrillos", "Cerro Navia", "El Bosque", "Estación Central", "Huechuraba", "Independencia", "La Cisterna", "La Granja", "La Pintana", "La Reina", "Renca", "San Ramón", "Vitacura"],
+  "O'Higgins": ["Rancagua", "Machalí", "Doñihue", "Graneros", "Las Cabras", "Mostazal", "Olivar", "Peumo", "Pichidegua", "Quinta de Tilcoco", "Rengo", "Requínoa", "San Vicente", "Coltauco", "Cunco", "Lampa", "San Fernando"],
+  "Maule": ["Talca", "Linares", "Curicó", "Cauquenes", "Maule", "San Javier", "Longaví", "Colbún", "Villa Alegre", "Rauco", "San Clemente", "Pelarco", "San Rafael"],
+  "Ñuble": ["Chillán", "Chillán Viejo", "El Carmen", "Pinto", "San Carlos", "San Nicolás", "Yungay", "Bulnes", "Ñiquén", "Ránquil"],
+  "Biobío": ["Concepción", "Talcahuano", "Los Ángeles", "Chiguayante", "San Pedro de la Paz", "Hualpén", "Hualqui", "Coronel", "Lota", "Penco", "Tomé", "Nacimiento", "Santa Bárbara", "Yumbel"],
+  "La Araucanía": ["Temuco", "Angol", "Freire", "Villarrica", "Pucón", "Loncoche", "Cunco", "Cañete", "Carahue", "Victoria", "Pitrufquén"],
+  "Los Ríos": ["Valdivia", "Lanco", "Los Lagos", "Panguipulli", "Río Bueno", "Máfil", "Corral", "La Unión", "Futrono"],
+  "Los Lagos": ["Osorno", "Puerto Montt", "Castro", "Ancud", "Chonchi", "Dalcahue", "Puerto Varas", "Frutillar", "Calbuco", "Llanquihue", "Osorno", "Purranque"],
+  "Aysén": ["Coyhaique", "Chile Chico", "Lago Verde", "Puerto Aysén", "Río Ibáñez", "Guaitecas"],
+  "Magallanes y de la Antártica Chilena": ["Punta Arenas", "Puerto Natales", "Porvenir", "Cabo de Hornos", "Laguna Blanca"]
+}

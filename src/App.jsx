@@ -12,6 +12,8 @@ import CameraPage from './pages/Camera/CameraPage'
 import { PhotoProvider } from './context/PhotoContext'
 import PhotoReviewPage from './pages/Camera/PhotoReviewPage'
 import Profile from './pages/Profile/Profile'
+import Afiliacion from './pages/Afiliation/Afiliation'
+import Ubicacion from './pages/getUbi/Ubicacion'
 
 
 
@@ -36,6 +38,8 @@ function App() {
             <Route path="/camera" element={<CameraPage />} />
             <Route path="/review-photo" element={<PhotoReviewPage />} />
             <Route path='/profile' element={<Profile />} />
+            <Route path='/afiliacion' element={<Afiliacion />} />
+            <Route path='/ubicacion' element={<Ubicacion />} />
             <Route path='*' element={<h1>Not Found</h1>} />
           </Routes>
         </PhotoProvider>

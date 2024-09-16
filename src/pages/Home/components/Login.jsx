@@ -31,7 +31,7 @@ function Login() {
   const handleGoogleSignin = async () => {
     try {
       await loginWitchGoogle()
-      navegate("/")
+      navegate("/afiliacion")
     } catch (error) {
       setError(error.message)
     }
@@ -130,7 +130,7 @@ function Login() {
                 <span className="ml-2">Login Google</span>
               </button>
               <div className="text-center mt-3">
-                <span cla ssName="label">
+                <span className="label">
                   <a href="/register" className="link link-hover">Crear cuenta</a>
                 </span>
               </div>
