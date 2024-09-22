@@ -31,7 +31,7 @@ function Login() {
   const handleGoogleSignin = async () => {
     try {
       await loginWitchGoogle()
-      navegate("/afiliacion")
+      navegate("/")
     } catch (error) {
       setError(error.message)
     }

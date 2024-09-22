@@ -26,7 +26,7 @@ function Register() {
         setError("");
         try {
             await signup(user.email, user.password);
-            navegate('/')
+            navegate('/afiliacion')
         } catch (error) {
             //setError(error.message)
             if (error.code === "auth/invalid-email") {
@@ -75,15 +75,6 @@ function Register() {
                                     <span className="label-text">Password</span>
                                 </label>
                                 <input type="password" name="password" placeholder="password" className="input input-bordered" onChange={handleChange} />
-                            </div>
-                            <div className="form-control mt-4">
-                                <select className="select select-success w-full max-w-xs" required>
-                                    <option disabled selected>A que organizacion pertenece</option>
-                                    <option>organizacion 1</option>
-                                    <option>organizacion 2</option>
-                                    <option>organizacion 3</option>
-                                    <option>organizacion 4</option>
-                                </select>
                             </div>
                             <div className="form-control mt-6">
                                 <button className="btn btn-primary">Registrar</button>

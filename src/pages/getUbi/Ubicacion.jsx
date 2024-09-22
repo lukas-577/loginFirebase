@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import Select from 'react-select';
 import { useNavigate } from 'react-router-dom';
+import { getFirestore, doc, setDoc } from 'firebase/firestore'; // Importar Firestore
+import { getAuth } from 'firebase/auth'; // Importar Auth
 import regionsData from './regionsData.json'; // Asegúrate de que este archivo está en la ruta correcta
 
 const Ubicacion = () => {
   const [region, setRegion] = useState('');
   const [comuna, setComuna] = useState('');
   const navigate = useNavigate();
+  const db = getFirestore(); // Inicializar Firestore
+  const auth = getAuth(); // Inicializar Auth
 
   const handleRegionChange = (selectedOption) => {
     setRegion(selectedOption.value);
@@ -17,23 +21,37 @@ const Ubicacion = () => {
     setComuna(selectedOption.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Región seleccionada:', region);
-    console.log('Comuna seleccionada:', comuna);
-    navigate('/');
-    // Aquí puedes manejar la lógica para enviar los datos
+    const user = auth.currentUser;
+
+    if (user) {
+      try {
+        // Guardar los datos de región y comuna en Firestore
+        await setDoc(doc(db, 'users', user.uid), {
+          region,
+          comuna,
+        }, { merge: true }); // Merge para no sobreescribir datos existentes
+        
+        console.log('Datos guardados exitosamente en Firestore.');
+        navigate('/', { state: { region, comuna } });
+      } catch (error) {
+        console.error('Error al guardar los datos:', error);
+      }
+    } else {
+      console.error('No hay usuario autenticado.');
+    }
   };
 
   const regionOptions = Object.keys(regionsData).map((regionName) => ({
     value: regionName,
-    label: regionName
+    label: regionName,
   }));
 
   const comunaOptions = region
     ? regionsData[region].map((comunaName) => ({
         value: comunaName,
-        label: comunaName
+        label: comunaName,
       }))
     : [];
 
