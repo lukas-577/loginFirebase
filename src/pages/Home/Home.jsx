@@ -2,7 +2,6 @@ import React from 'react'
 import { useAuth } from '../../context/AuthContext'
 import NavBar from '../../components/NavBar'
 import Maps from '../Maps/Index'
-import Camera from '../Camera/components/Camera'
 import { useNavigate } from 'react-router-dom'
 
 function Home() {

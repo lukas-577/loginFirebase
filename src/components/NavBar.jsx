@@ -1,13 +1,16 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 
 export default function NavBar({ user }) {
 
     const { logout } = useAuth()
+    const navegate = useNavigate()
 
     const handleLogout = async () => {
         try {
             await logout();
+            navegate("/login")
         } catch (error) {
             console.log(error.message
 
