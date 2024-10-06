@@ -7,9 +7,10 @@ import NavBar from '../../components/NavBar';
 
 function CameraPage() {
     const { user } = useAuth()
-    console.log(user)
+    
 
     const { setPhoto } = usePhoto();
+    console.log(setPhoto); 
     const navigate = useNavigate();
 
     const handleCapture = (imageSrc) => {
