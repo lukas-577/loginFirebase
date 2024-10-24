@@ -3,6 +3,7 @@ import { useAuth } from '../../context/AuthContext'
 import NavBar from '../../components/NavBar'
 import Maps from '../Maps/Index'
 import { useNavigate } from 'react-router-dom'
+import 'boxicons';
 
 function Home() {
     const { user } = useAuth()
@@ -29,7 +30,7 @@ function Home() {
                     onClick={handleCameraClick}
                     className="btn btn-success"
                 >
-                    Usa la Camara
+                    <box-icon name='camera' animation='tada' ></box-icon>Usa la Camara
                 </button>
             </div>
         </>

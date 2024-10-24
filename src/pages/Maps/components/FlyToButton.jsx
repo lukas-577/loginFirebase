@@ -8,7 +8,7 @@ const FlyToButton = ({ onClick }) => {
                 onClick={onClick}
                 className="btn btn-success"
             >
-                📍 mi ubicación
+                <box-icon name='map' ></box-icon>Ubicación
             </button>
         </div>
     );

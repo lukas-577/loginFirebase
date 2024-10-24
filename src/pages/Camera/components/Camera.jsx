@@ -10,10 +10,10 @@ const videoConstraints = {
 const Camera = ({ onCapture }) => {
   const webcamRef = useRef(null);
 
-    const capturePhoto = useCallback(() => {
-        const imageSrc = webcamRef.current.getScreenshot();
-        onCapture(imageSrc);
-    }, [onCapture]);
+  const capturePhoto = useCallback(() => {
+    const imageSrc = webcamRef.current.getScreenshot();
+    onCapture(imageSrc);
+  }, [onCapture]);
 
   return (
     <div>
@@ -22,7 +22,8 @@ const Camera = ({ onCapture }) => {
         ref={webcamRef}
         screenshotFormat="image/jpeg"
         width={1980}
-        videoConstraints={{videoConstraints}}
+        videoConstraints={{ videoConstraints }}
+        className='rounded-lg shadow-lg'
       />
       <button onClick={capturePhoto} className="bg-blue-500 text-white p-3 rounded-lg shadow-lg">Toma la foto</button>
     </div>
