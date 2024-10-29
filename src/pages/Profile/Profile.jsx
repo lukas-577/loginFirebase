@@ -48,7 +48,7 @@ function Profile() {
   return (
     <>
       <NavBar user={user}></NavBar>
-      <div className="flex justify-center items-start h-screen w-screen"> {/* Ocupa toda la pantalla y centra el contenido horizontalmente */}
+      <div className="pt-24 flex justify-center h-screen w-screen"> {/* Ocupa toda la pantalla y centra el contenido horizontalmente */}
         {user ? (
           <div className="mt-24 flex flex-col items-center mt-4"> {/* Centra la imagen y el texto */}
             <img

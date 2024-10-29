@@ -2,8 +2,8 @@ import React, { useRef, useCallback } from 'react';
 import Webcam from 'react-webcam';
 
 const videoConstraints = {
-  width: 1280,
-  height: 720,
+  // width: 1280,
+  // height: 720,
   facingMode: 'user'
 }
 
@@ -21,9 +21,9 @@ const Camera = ({ onCapture }) => {
         audio={false}
         ref={webcamRef}
         screenshotFormat="image/jpeg"
-        width={1980}
+        //width={1980}
         videoConstraints={{ videoConstraints }}
-        className='rounded-lg shadow-lg'
+        className='rounded-lg shadow-lg container mx-auto'
       />
       <button onClick={capturePhoto} className="bg-blue-500 text-white p-3 rounded-lg shadow-lg">Toma la foto</button>
     </div>
