@@ -20,7 +20,7 @@ const Camera = ({ onCapture }) => {
       <Webcam
         audio={false}
         ref={webcamRef}
-        screenshotFormat="image/jpeg"
+        screenshotFormat="image/jpg"
         //width={1980}
         videoConstraints={{ videoConstraints }}
         className='rounded-lg shadow-lg container mx-auto'

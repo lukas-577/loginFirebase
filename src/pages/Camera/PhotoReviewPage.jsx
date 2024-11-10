@@ -9,8 +9,43 @@ function PhotoReviewPage() {
     const { photos, setPhotos, setCurrentPhotoIndex } = usePhoto(); // Añadimos setPhotos y setCurrentPhotoIndex para resetear las fotos
     const navigate = useNavigate();
 
-    const confirmPhotos = () => {
-        alert('Aquí hace la logica la IA');
+    const confirmPhotos = async () => {
+        try {
+            for (const photo of photos) {
+                // Extraer solo la parte Base64, quitando el prefijo "data:image/png;base64,"
+                const base64String = photo.split(",")[1];
+
+                // Decodificar Base64 y convertirlo en un array de bytes
+                const byteCharacters = atob(base64String);
+                const byteNumbers = new Array(byteCharacters.length);
+                for (let i = 0; i < byteCharacters.length; i++) {
+                    byteNumbers[i] = byteCharacters.charCodeAt(i);
+                }
+                const byteArray = new Uint8Array(byteNumbers);
+
+                // Crear un Blob a partir del array de bytes
+                const blob = new Blob([byteArray], { type: "image/png" });
+
+                // Crear el FormData y añadir el archivo Blob
+                const formData = new FormData();
+                formData.append("file", blob, "photo.png"); // 'photo.png' es un nombre temporal
+
+                // Enviar la petición al backend
+                const response = await fetch("http://localhost:8000/upload-image/", {
+                    method: "POST",
+                    body: formData,
+                });
+
+                if (!response.ok) {
+                    throw new Error("Error al subir la foto");
+                }
+            }
+
+            alert("Fotos confirmadas y enviadas correctamente.");
+        } catch (error) {
+            console.error("Error al confirmar las fotos:", error);
+            alert("Hubo un problema al confirmar las fotos.");
+        }
     };
 
     const retakeAllPhotos = () => {
@@ -36,14 +71,14 @@ function PhotoReviewPage() {
                 ))}
             </div>
             <div className="flex space-x-4 mt-4">
-                <button 
-                    onClick={confirmPhotos} 
+                <button
+                    onClick={confirmPhotos}
                     className="bg-green-500 text-white p-3 rounded-lg shadow-lg"
                 >
                     Confirmar Fotos
                 </button>
-                <button 
-                    onClick={retakeAllPhotos} 
+                <button
+                    onClick={retakeAllPhotos}
                     className="bg-red-500 text-white p-3 rounded-lg shadow-lg"
                 >
                     Volver a tomar todas las fotos
