@@ -1,17 +1,18 @@
 import { useEffect, useState } from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { getFirestore, doc, getDoc } from 'firebase/firestore'; // Importar Firestore
+import { getFirestore, doc, getDoc, collection, getDocs } from 'firebase/firestore';
 import NavBar from '../../components/NavBar';
-import LoadingScreen from '../../components/LoadingScreen'; // Importa la pantalla de carga
+import LoadingScreen from '../../components/LoadingScreen';
 
 function Profile() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [ubicacion, setUbicacion] = useState({ region: '', comuna: '' }); // Estado para guardar región y comuna
+  const [ubicacion, setUbicacion] = useState({ region: '', comuna: '' });
+  const [favLocations, setFavLocations] = useState([]); // Estado para almacenar los nombres de ubicaciones favoritas
 
   useEffect(() => {
     const auth = getAuth();
-    const db = getFirestore(); // Inicializar Firestore
+    const db = getFirestore();
 
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       setUser(currentUser);
@@ -29,12 +30,20 @@ function Profile() {
               comuna: userData.comuna || '',
             });
           }
+
+          // Obtener los nombres de ubicaciones favoritas en la subcolección 'locations'
+          const locationsCollectionRef = collection(userRef, 'locations');
+          const locationsSnapshot = await getDocs(locationsCollectionRef);
+
+          // Extraer y almacenar solo el nombre de cada ubicación en el estado `favLocations`
+          const locations = locationsSnapshot.docs.map((doc) => doc.data().nombre);
+          setFavLocations(locations);
+
         } catch (error) {
-          console.error("Error al recuperar la ubicación:", error);
+          console.error("Error al recuperar la información:", error);
         }
       }
 
-      // Eliminar el estado de carga cuando se tienen todos los datos
       setLoading(false);
     });
 
@@ -42,15 +51,15 @@ function Profile() {
   }, []);
 
   if (loading) {
-    return <LoadingScreen />; // Mostrar pantalla de carga mientras se espera por los datos
+    return <LoadingScreen />;
   }
 
   return (
     <>
       <NavBar user={user}></NavBar>
-      <div className="pt-24 flex justify-center h-screen w-screen"> {/* Ocupa toda la pantalla y centra el contenido horizontalmente */}
+      <div className="pt-24 flex justify-center h-screen w-screen">
         {user ? (
-          <div className="mt-24 flex flex-col items-center mt-4"> {/* Centra la imagen y el texto */}
+          <div className="mt-24 flex flex-col items-center mt-4">
             <img
               className="rounded-full h-20 w-20"
               src={user.photoURL}
@@ -66,6 +75,19 @@ function Profile() {
                 <p><strong>Comuna:</strong> {ubicacion.comuna}</p>
               </div>
             )}
+
+            {/* Mostrar solo el nombre de las ubicaciones favoritas si existen */}
+            {favLocations.length > 0 && (
+              <div className="mt-4">
+                <strong>Ubicaciones Favoritas:</strong>
+                <ul>
+                  {favLocations.map((nombre, index) => (
+                    <li key={index}>{nombre}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+              
           </div>
         ) : (
           <p>No has iniciado sesión.</p>
