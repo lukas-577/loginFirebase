@@ -1,18 +1,38 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 function Camera({ onCapture }) {
     const videoRef = useRef(null);
-    const [isBackCamera, setIsBackCamera] = useState(false); // Estado para alternar entre cámaras
+    const [devices, setDevices] = useState([]); // Para almacenar todas las cámaras
+    const [deviceId, setDeviceId] = useState(''); // ID de la cámara activa
+
+    useEffect(() => {
+        // Enumerar los dispositivos de video
+        navigator.mediaDevices.enumerateDevices().then((mediaDevices) => {
+            const videoDevices = mediaDevices.filter(({ kind }) => kind === "videoinput");
+            setDevices(videoDevices);
+            if (videoDevices.length > 0) {
+                setDeviceId(videoDevices[0].deviceId); // Establecer la primera cámara como predeterminada
+            }
+        });
+    }, []);
 
     useEffect(() => {
         startCamera();
-    }, [isBackCamera]); // Se vuelve a ejecutar cuando cambia el estado de la cámara
+    }, [deviceId]); // Reinicia la cámara cuando cambia el deviceId
 
     const startCamera = async () => {
         if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
             try {
+                // Detener el stream existente
+                if (videoRef.current && videoRef.current.srcObject) {
+                    const stream = videoRef.current.srcObject;
+                    const tracks = stream.getTracks();
+                    tracks.forEach(track => track.stop());
+                }
+
+                // Iniciar el stream con el deviceId seleccionado
                 const stream = await navigator.mediaDevices.getUserMedia({
-                    video: { facingMode: isBackCamera ? { exact: "environment" } : "user" },
+                    video: { deviceId: deviceId ? { exact: deviceId } : undefined },
                 });
                 videoRef.current.srcObject = stream;
             } catch (error) {
@@ -31,10 +51,6 @@ function Camera({ onCapture }) {
         onCapture(imageSrc);
     };
 
-    const switchCamera = () => {
-        setIsBackCamera((prev) => !prev); // Cambia entre la cámara frontal y trasera
-    };
-
     return (
         <div className="flex flex-col items-center">
             <video ref={videoRef} autoPlay playsInline className="w-full max-w-md" />
@@ -44,12 +60,19 @@ function Camera({ onCapture }) {
             >
                 Tomar Foto
             </button>
-            <button 
-                onClick={switchCamera} 
-                className="bg-gray-500 text-white p-3 rounded-lg shadow-lg mt-4"
+
+            {/* Selector de Cámara */}
+            <select 
+                onChange={(e) => setDeviceId(e.target.value)} 
+                value={deviceId}
+                className="bg-gray-500 text-white p-2 rounded-lg shadow-lg mt-4"
             >
-                Cambiar a {isBackCamera ? "Cámara Frontal" : "Cámara Trasera"}
-            </button>
+                {devices.map((device, index) => (
+                    <option key={device.deviceId} value={device.deviceId}>
+                        {device.label || `Cámara ${index + 1}`}
+                    </option>
+                ))}
+            </select>
         </div>
     );
 }
