@@ -9,6 +9,7 @@ function PhotoReviewPage() {
     const { photos, setPhotos, setCurrentPhotoIndex } = usePhoto(); // Añadimos setPhotos y setCurrentPhotoIndex para resetear las fotos
     const navigate = useNavigate();
 
+    console.log(user.uid)
     const confirmPhotos = async () => {
         try {
             for (const photo of photos) {
@@ -31,11 +32,14 @@ function PhotoReviewPage() {
                 formData.append("file", blob, "photo.png"); // 'photo.png' es un nombre temporal
 
                 // Enviar la petición al backend
-                const response = await fetch("http://localhost:8000/upload-image/", {
+                const response = await fetch(`https://ia-869766936318.southamerica-west1.run.app/upload-image/${user.uid}`, {
                     method: "POST",
                     body: formData,
                 });
-
+                if (response.ok) {
+                    const data = await response.json();
+                    console.log(data);
+                }
                 if (!response.ok) {
                     throw new Error("Error al subir la foto");
                 }
