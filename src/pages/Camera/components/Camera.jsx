@@ -4,6 +4,7 @@ function Camera({ onCapture }) {
     const videoRef = useRef(null);
     const [devices, setDevices] = useState([]); // Para almacenar todas las cámaras
     const [deviceId, setDeviceId] = useState(''); // ID de la cámara activa
+    const [currentDeviceIndex, setCurrentDeviceIndex] = useState(0); // Índice de la cámara activa
 
     useEffect(() => {
         // Enumerar los dispositivos de video
@@ -51,6 +52,14 @@ function Camera({ onCapture }) {
         onCapture(imageSrc);
     };
 
+    const toggleCamera = () => {
+        if (devices.length > 1) {
+            const nextIndex = (currentDeviceIndex + 1) % devices.length;
+            setCurrentDeviceIndex(nextIndex);
+            setDeviceId(devices[nextIndex].deviceId);
+        }
+    };
+
     return (
         <div className="flex flex-col items-center">
             <video ref={videoRef} autoPlay playsInline className="w-full max-w-md" />
@@ -60,19 +69,19 @@ function Camera({ onCapture }) {
             >
                 Tomar Foto
             </button>
+            
+            {devices.length > 1 && (
+                <button 
+                    onClick={toggleCamera} 
+                    className="bg-gray-500 text-white p-3 rounded-lg shadow-lg mt-4"
+                >
+                    Cambiar Cámara
+                </button>
+            )}
 
-            {/* Selector de Cámara */}
-            <select 
-                onChange={(e) => setDeviceId(e.target.value)} 
-                value={deviceId}
-                className="bg-gray-500 text-white p-2 rounded-lg shadow-lg mt-4"
-            >
-                {devices.map((device, index) => (
-                    <option key={device.deviceId} value={device.deviceId}>
-                        {device.label || `Cámara ${index + 1}`}
-                    </option>
-                ))}
-            </select>
+            <p className="text-gray-700 mt-2">
+                Cámara actual: {devices[currentDeviceIndex]?.label || `Cámara ${currentDeviceIndex + 1}`}
+            </p>
         </div>
     );
 }
