@@ -20,11 +20,11 @@ export default function NavBar({ user }) {
 
 
     return (
-        <div className="fixed navbar bg-base-100">
+        <div className="fixed top-0 w-full navbar bg-primary text-white shadow-md z-10">
             <div className="flex-1">
-                <a className="btn btn-ghost text-xl" href='/'>Macrofitas</a>
+                <a className="btn btn-ghost text-xl" href='/'>Icap</a>
             </div>
-            <div className="flex-none gap-2">
+            <div className="flex-none gap-4">
                 <div className="form-control">
                     <input type="text" placeholder="Search" className="input input-bordered w-24 md:w-auto" />
                 </div>
