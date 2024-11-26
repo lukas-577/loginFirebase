@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { usePhoto } from '../../context/PhotoContext';
 import { useAuth } from '../../context/AuthContext';
@@ -9,9 +9,19 @@ function PhotoReviewPage() {
     const { photos, setPhotos, setCurrentPhotoIndex } = usePhoto(); // Añadimos setPhotos y setCurrentPhotoIndex para resetear las fotos
     const navigate = useNavigate();
 
-    console.log(user.uid)
+    // Estado de carga y errores
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(null);
+    const [imageUrls, setImageUrls] = useState([]); // Almacenará las URLs de las imágenes
+
+    console.log(user?.uid);
+
     const confirmPhotos = async () => {
         try {
+            setLoading(true); // Activamos el estado de carga
+            setError(null); // Limpiamos cualquier error previo
+            const urls = []; // Array para almacenar las URLs de las imágenes
+
             for (const photo of photos) {
                 // Extraer solo la parte Base64, quitando el prefijo "data:image/png;base64,"
                 const base64String = photo.split(",")[1];
@@ -36,19 +46,26 @@ function PhotoReviewPage() {
                     method: "POST",
                     body: formData,
                 });
+
                 if (response.ok) {
                     const data = await response.json();
                     console.log(data);
-                }
-                if (!response.ok) {
+                    // Almacenamos la URL de la imagen en el array
+                    urls.push(data.image_path);
+                } else {
                     throw new Error("Error al subir la foto");
                 }
             }
 
+            setImageUrls(urls); // Almacenamos las URLs obtenidas
             alert("Fotos confirmadas y enviadas correctamente.");
+            navigate('/image-generada', {state: {imageUrls: urls}}); // Redirige a la página de la imagen generada
         } catch (error) {
+            setError(error.message); // Si ocurre un error, lo guardamos
             console.error("Error al confirmar las fotos:", error);
             alert("Hubo un problema al confirmar las fotos.");
+        } finally {
+            setLoading(false); // Desactivamos el estado de carga al final
         }
     };
 
@@ -74,10 +91,27 @@ function PhotoReviewPage() {
                     </div>
                 ))}
             </div>
+
+            {/* Mostrar el estado de carga si está en proceso */}
+            {loading && (
+                <div className="flex items-center justify-center mt-4">
+                    <div className="animate-spin rounded-full border-t-4 border-blue-500 h-10 w-10"></div>
+                    <span className="ml-2">Cargando...</span>
+                </div>
+            )}
+
+            {/* Mostrar el error si ocurre uno */}
+            {error && (
+                <div className="text-red-500 mt-4">
+                    <p>Error: {error}</p>
+                </div>
+            )}
+
             <div className="flex space-x-4 mt-4">
                 <button
                     onClick={confirmPhotos}
                     className="bg-green-500 text-white p-3 rounded-lg shadow-lg"
+                    disabled={loading} // Deshabilitar el botón mientras se está cargando
                 >
                     Confirmar Fotos
                 </button>
@@ -88,6 +122,20 @@ function PhotoReviewPage() {
                     Volver a tomar todas las fotos
                 </button>
             </div>
+
+            {/* Mostrar las imágenes procesadas */}
+            {imageUrls.length > 0 && (
+                <div className="mt-6">
+                    <h2 className="text-xl">Imágenes procesadas</h2>
+                    <div className="grid grid-cols-1 gap-4 mt-4">
+                        {imageUrls.map((imageUrl, index) => (
+                            <div key={index} className="flex flex-col items-center">
+                                <img src={imageUrl} alt={`Imagen procesada ${index + 1}`} className="w-full max-w-md mb-2" />
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

@@ -12,6 +12,7 @@ import Profile from '../pages/Profile/Profile'
 import Ubicacion from '../pages/getUbi/Ubicacion'
 import Afiliacion from '../pages/Afiliation/Afiliation'
 import Confirmation from '../pages/Home/components/Confirmation'
+import ImageGenerated from '../pages/RespuestaBack/imagenesBack'
 
 
 const router = createBrowserRouter([
@@ -52,6 +53,13 @@ const router = createBrowserRouter([
                 element:
                     <ProtectedRute>
                         <Ubicacion></Ubicacion>
+                    </ProtectedRute>
+            },
+            {
+                path: "/image-generada",
+                element:
+                    <ProtectedRute>
+                        <ImageGenerated></ImageGenerated>
                     </ProtectedRute>
             },
             {
