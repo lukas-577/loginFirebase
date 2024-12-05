@@ -15,9 +15,9 @@ function CameraPage() {
     const [hasCamera, setHasCamera] = useState(true); // Estado para verificar si hay cámara conectada
 
     const messages = [
-        'Toma la primera foto: asegúrate de que tu rostro esté visible',
-        'Toma la segunda foto: incluye un fondo claro',
-        'Toma la tercera foto: intenta que sea un plano cercano'
+        'Toma la primera foto: debe tomarse a una profundidad < 0,1m (h < 0.1m)',
+        'Toma la segunda foto: debe tomarse a una profundidad mayor e igual a 0.1m e inferior a 0.5m (0.1 ≤ h < 0.5m)',
+        'Toma la tercera foto: debe tomarse a una profundidad mayor e igual a 0.5m (0.5m ≤ h)'
     ];
 
     useEffect(() => {
