@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import ContenedorMaps from "./components/ContenedorMaps";
 import FlyToButton from "./components/FlyToButton";
 import GuardaMiUbicacion from "./components/GuardaMiUbicacion";
+import LoadingScreen from "./../../components/LoadingScreen";
 
 
 function Maps() {
@@ -31,6 +32,11 @@ function Maps() {
         }
         console.log('flyTo')
     };
+
+
+    if (loading) {
+        return <LoadingScreen></LoadingScreen>;
+    }
 
     return (
         <>

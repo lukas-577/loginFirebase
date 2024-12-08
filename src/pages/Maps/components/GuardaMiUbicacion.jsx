@@ -46,6 +46,9 @@ const GuardaMiUbicacion = ({ position }) => {
     };
 
     const handleAddLocation = () => {
+
+        // Aquí va la lógica para agregar la ubicación
+        console.log("Ubicación agregada:", locationName);
         addLocation();
         setLocationName('');
     };
@@ -61,6 +64,7 @@ const GuardaMiUbicacion = ({ position }) => {
                     <h3 className="font-bold text-lg">Agregar Ubicación</h3>
                     <p className="py-4">Se agregara la ubicación a tu perfil</p>
                     <input
+                        required
                         type="text"
                         placeholder="Nombre de la ubicación"
                         className="input input-bordered input-success w-full max-w-xs"
@@ -68,10 +72,10 @@ const GuardaMiUbicacion = ({ position }) => {
                         onChange={(e) => setLocationName(e.target.value)}
                     />
                     <div className="modal-action">
-                        <form method="dialog">
-                            {/* if there is a button in form, it will close the modal */}
-                            <button className="btn" onClick={handleAddLocation}>Agregar</button>
-                        </form>
+                        <button className="btn" onClick={() => document.getElementById('my_modal_1').close()}>Cancelar</button>
+                        {/* if there is a button in form, it will close the modal */}
+                        <button disabled={!locationName.trim()} className="btn" onClick={() => { handleAddLocation(); document.getElementById('my_modal_1').close() }}>Agregar</button>
+
                     </div>
                 </div>
             </dialog>

@@ -38,6 +38,7 @@ function Profile() {
           // Extraer y almacenar solo el nombre de cada ubicación en el estado `favLocations`
           const locations = locationsSnapshot.docs.map((doc) => doc.data().nombre);
           setFavLocations(locations);
+          console.log("Ubicaciones favoritas:", locations);
 
         } catch (error) {
           console.error("Error al recuperar la información:", error);
@@ -87,7 +88,7 @@ function Profile() {
                 </ul>
               </div>
             )}
-              
+
           </div>
         ) : (
           <p>No has iniciado sesión.</p>
