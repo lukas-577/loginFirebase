@@ -36,7 +36,11 @@ function Profile() {
           const locationsSnapshot = await getDocs(locationsCollectionRef);
 
           // Extraer y almacenar solo el nombre de cada ubicación en el estado `favLocations`
-          const locations = locationsSnapshot.docs.map((doc) => doc.data().nombre);
+          const locations = locationsSnapshot.docs.map((doc) => ({
+            nombre: doc.data().nombre,
+            lat: doc.data().lat,
+            lon: doc.data().lng,
+          }));
           setFavLocations(locations);
           console.log("Ubicaciones favoritas:", locations);
 
@@ -56,6 +60,7 @@ function Profile() {
   }
 
   return (
+    //console.log(user.photoURL),
     <>
       <NavBar user={user}></NavBar>
       <div className="pt-24 flex justify-center h-screen w-screen">
@@ -68,6 +73,7 @@ function Profile() {
             />
             <p className="mt-4">{user.displayName}</p>
             <p className="mt-2">{user.email}</p>
+            
 
             {/* Mostrar región y comuna si existen */}
             {ubicacion.region && ubicacion.comuna && (
@@ -76,14 +82,17 @@ function Profile() {
                 <p><strong>Comuna:</strong> {ubicacion.comuna}</p>
               </div>
             )}
+            
 
             {/* Mostrar solo el nombre de las ubicaciones favoritas si existen */}
             {favLocations.length > 0 && (
               <div className="mt-4">
                 <strong>Ubicaciones Favoritas:</strong>
                 <ul>
-                  {favLocations.map((nombre, index) => (
-                    <li key={index}>{nombre}</li>
+                  {favLocations.map((location, index) => (
+                    <li key={index}>
+                      {location.nombre}
+                    </li>
                   ))}
                 </ul>
               </div>
