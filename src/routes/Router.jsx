@@ -13,6 +13,7 @@ import Ubicacion from '../pages/getUbi/Ubicacion'
 import Afiliacion from '../pages/Afiliation/Afiliation'
 import Confirmation from '../pages/Home/components/Confirmation'
 import ImageGenerated from '../pages/RespuestaBack/imagenesBack'
+import WaterPotabilityResultPage from '../pages/WaterPotability/WaterPotabilityResultPage'
 
 
 const router = createBrowserRouter([
@@ -60,6 +61,13 @@ const router = createBrowserRouter([
                 element:
                     <ProtectedRute>
                         <ImageGenerated></ImageGenerated>
+                    </ProtectedRute>
+            },
+            {
+                path: "/water-potability",
+                element:
+                    <ProtectedRute>
+                        <WaterPotabilityResultPage></WaterPotabilityResultPage>
                     </ProtectedRute>
             },
             {
