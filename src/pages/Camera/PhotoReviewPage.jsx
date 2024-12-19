@@ -42,7 +42,7 @@ function PhotoReviewPage() {
                 formData.append("file", blob, "photo.png"); // 'photo.png' es un nombre temporal
 
                 // Enviar la petición al backend
-                const response = await fetch(`https://ia-869766936318.southamerica-west1.run.app/upload-image/${user.uid}`, {
+                const response = await fetch(`http://localhost:8080/upload-image/${user.uid}`, {
                     method: "POST",
                     body: formData,
                 });

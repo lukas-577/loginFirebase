@@ -75,17 +75,23 @@ function WaterPotabilityResultPage() {
         // Calcula el total de plantas
         const totalPlants = plants.reduce((acc, plant) => acc + plant.cantidad, 0);
 
-        const formulaResult = plants.reduce((acc, plant) => {
+        let numerator = 0;
+        let denominator = 0;
+
+        plants.forEach((plant) => {
             const selectedPlant = plantTypes[plant.id];
             if (selectedPlant) {
                 const percentage = (plant.cantidad / totalPlants) * 100;
                 const coverageValue = calculateCoverageValue(percentage);
-                return acc + selectedPlant.vi * coverageValue * selectedPlant.vt;
-            }
-            return acc;
-        }, 0);
 
-        setResult(formulaResult.toFixed(2));
+                // Incrementa numerador y denominador
+                numerator += selectedPlant.vi * coverageValue * selectedPlant.vt;
+                denominator += selectedPlant.vi * coverageValue;
+            }
+        });
+
+        const icap = numerator / (denominator || 1); // Evita divisiones por 0
+        setResult(icap.toFixed(2));
     };
 
     return (
@@ -142,7 +148,7 @@ function WaterPotabilityResultPage() {
 
             {result !== null && (
                 <div className="mt-6 p-4 bg-white shadow-lg rounded-lg">
-                    <h2 className="text-lg font-semibold">Resultado:</h2>
+                    <h2 className="text-lg font-semibold">Resultado (ICAP):</h2>
                     <p className="text-xl font-bold">{result}</p>
                 </div>
             )}
