@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { usePhoto } from '../../context/PhotoContext';
 import { useAuth } from '../../context/AuthContext';
 import NavBar from '../../components/NavBar';
+import { ToastContainer, toast } from 'react-toastify';
+import Alert from '../../components/Alert';
 
 function PhotoReviewPage() {
     const { user } = useAuth();
@@ -13,6 +15,7 @@ function PhotoReviewPage() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
     const [imageUrls, setImageUrls] = useState([]); // Almacenará las URLs de las imágenes
+    const [alert, setAlert] = useState(null);
 
     console.log(user?.uid);
 
@@ -58,12 +61,21 @@ function PhotoReviewPage() {
             }
 
             setImageUrls(urls); // Almacenamos las URLs obtenidas
-            alert("Fotos confirmadas y enviadas correctamente.");
-            navigate('/image-generada', {state: {imageUrls: urls}}); // Redirige a la página de la imagen generada
+            setAlert({
+                type: 'success',
+                message: "Fotos confirmadas y enviadas correctamente."
+            });
+            setTimeout(() => {
+                navigate('/image-generada', { state: { imageUrls: urls } }); // Redirige a la página de la imagen generada
+            }, 3000);
+
         } catch (error) {
             setError(error.message); // Si ocurre un error, lo guardamos
             console.error("Error al confirmar las fotos:", error);
-            alert("Hubo un problema al confirmar las fotos.");
+            setAlert({
+                type: 'error',
+                message: error.message
+            });
         } finally {
             setLoading(false); // Desactivamos el estado de carga al final
         }
@@ -107,6 +119,12 @@ function PhotoReviewPage() {
                 </div>
             )}
 
+            {/* Mostrar la alerta si existe */}
+            {alert && <Alert type={alert.type} message={alert.message} />}
+
+
+            {/* Botones para confirmar o retomar las fotos */}
+
             <div className="flex space-x-4 mt-4">
                 <button
                     onClick={confirmPhotos}
@@ -118,6 +136,7 @@ function PhotoReviewPage() {
                 <button
                     onClick={retakeAllPhotos}
                     className="bg-red-500 text-white p-3 rounded-lg shadow-lg"
+                    disabled={loading} // Deshabilitar el botón mientras se está cargando
                 >
                     Volver a tomar todas las fotos
                 </button>

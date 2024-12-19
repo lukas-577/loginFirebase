@@ -25,8 +25,8 @@ export default function NavBar({ user }) {
                 <a className="btn btn-ghost text-xl" href='/'>Icap</a>
             </div>
             <div className="flex-none gap-4">
-                <div className="form-control">
-                    <input type="text" placeholder="Search" className="input input-bordered w-24 md:w-auto" />
+                <div className="">
+                    <a className="btn btn-ghost text-xl" href='/'>Home</a>
                 </div>
                 <div className="dropdown dropdown-end">
                     <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">

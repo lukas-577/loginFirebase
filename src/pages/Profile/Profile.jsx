@@ -73,7 +73,7 @@ function Profile() {
             />
             <p className="mt-4">{user.displayName}</p>
             <p className="mt-2">{user.email}</p>
-            
+
 
             {/* Mostrar región y comuna si existen */}
             {ubicacion.region && ubicacion.comuna && (
@@ -82,7 +82,7 @@ function Profile() {
                 <p><strong>Comuna:</strong> {ubicacion.comuna}</p>
               </div>
             )}
-            
+
 
             {/* Mostrar solo el nombre de las ubicaciones favoritas si existen */}
             {favLocations.length > 0 && (
