@@ -3,12 +3,15 @@ import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { getFirestore, doc, getDoc, collection, getDocs } from 'firebase/firestore';
 import NavBar from '../../components/NavBar';
 import LoadingScreen from '../../components/LoadingScreen';
+import LinesChart from '../../components/LinesChart';
 
 function Profile() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [ubicacion, setUbicacion] = useState({ region: '', comuna: '' });
   const [favLocations, setFavLocations] = useState([]); // Estado para almacenar los nombres de ubicaciones favoritas
+  const dataFav = favLocations.map((location) => location.nombre);
+  console.log(dataFav);
 
   useEffect(() => {
     const auth = getAuth();
@@ -65,44 +68,54 @@ function Profile() {
       <NavBar user={user}></NavBar>
       <div className="pt-24 flex justify-center h-screen w-screen">
         {user ? (
-          <div className="mt-24 flex flex-col items-center mt-4">
-            <img
-              className="rounded-full h-20 w-20"
-              src={user.photoURL}
-              alt={user.displayName}
-            />
-            <p className="mt-4">{user.displayName}</p>
-            <p className="mt-2">{user.email}</p>
+          <div className="mt-24 flex flex-col md:flex-row items-center md:items-start gap-12"> {/* Responsive flex */}
+            {/* Columna Izquierda: Información del Usuario */}
+            <div className="flex flex-col items-center">
+              <img
+                className="rounded-full h-20 w-20"
+                src={user.photoURL}
+                alt={user.displayName}
+              />
+              <p className="mt-4">{user.displayName}</p>
+              <p className="mt-2">{user.email}</p>
 
+              {/* Mostrar región y comuna si existen */}
+              {ubicacion.region && ubicacion.comuna && (
+                <div className="mt-4">
+                  <p>
+                    <strong>Región:</strong> {ubicacion.region}
+                  </p>
+                  <p>
+                    <strong>Comuna:</strong> {ubicacion.comuna}
+                  </p>
+                </div>
+              )}
 
-            {/* Mostrar región y comuna si existen */}
-            {ubicacion.region && ubicacion.comuna && (
-              <div className="mt-4">
-                <p><strong>Región:</strong> {ubicacion.region}</p>
-                <p><strong>Comuna:</strong> {ubicacion.comuna}</p>
+              {/* Mostrar solo el nombre de las ubicaciones favoritas si existen */}
+              {favLocations.length > 0 && (
+                <div className="mt-4">
+                  <strong>Ubicaciones Favoritas:</strong>
+                  <ul>
+                    {favLocations.map((location, index) => (
+                      <li key={index}>{location.nombre}</li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </div>
+
+            {/* Columna Derecha: Gráfico */}
+            <div className="w-full md:w-3/5 flex  items-center justify-center"> {/* Más ancho */}
+              <div className="w-full h-[300px]"> {/* Control del tamaño del gráfico */}
+                <LinesChart dataFav={dataFav} />
               </div>
-            )}
-
-
-            {/* Mostrar solo el nombre de las ubicaciones favoritas si existen */}
-            {favLocations.length > 0 && (
-              <div className="mt-4">
-                <strong>Ubicaciones Favoritas:</strong>
-                <ul>
-                  {favLocations.map((location, index) => (
-                    <li key={index}>
-                      {location.nombre}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-
+            </div>
           </div>
         ) : (
           <p>No has iniciado sesión.</p>
         )}
       </div>
+
     </>
   );
 }
