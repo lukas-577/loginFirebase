@@ -88,7 +88,7 @@ function PhotoReviewPage() {
     };
 
     return (
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center bg-base-100">
             {user && (
                 <div className='z-50 fixed w-full bg-base-100'>
                     <NavBar user={user}></NavBar>

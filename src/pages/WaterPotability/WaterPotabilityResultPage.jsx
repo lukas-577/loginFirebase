@@ -3,33 +3,33 @@ import NavBar from '../../components/NavBar';
 import { useAuth } from '../../context/AuthContext';
 
 const plantTypes = {
-    planta1: {nombre: "Agrostis capillaris", vi: 2.5, vt: 8},
-    planta2: {nombre: "Alga filamentosa", vi: 2, vt: 8}, 
-    planta3: {nombre: "Alisma lanceolatum", vi: 2, vt: 5}, 
-    planta4: {nombre: "Alnus glutinosa", vi: 2.5, vt: 6}, 
-    planta5: {nombre: "Blechnum chilense", vi: 2.5, vt: 8},
-    planta6: {nombre: "Chusquea quila", vi: 2.5, vt: 8},
-    planta7: {nombre: "Dactylis glomerata", vi: 2.5, vt: 8},
-    planta8: {nombre: "Eleocharis radicans", vi: 2.5, vt: 8},
-    planta9: {nombre: "Equisetum bogotense", vi: 2.5, vt: 8},
-    planta10: {nombre: "Hydrocotyle sp", vi: 1.5, vt: 4},
-    planta11: {nombre: "Juncus procerus", vi: 2, vt: 8},
-    planta12: {nombre: "Lotus pedunculatus", vi: 2.5, vt: 8},
-    planta13: {nombre: "Plantago lanceolata", vi: 2, vt: 6},
-    planta14: {nombre: "Plantago major", vi: 2, vt: 6},
-    planta15: {nombre: "Polygonum hydropiperoides", vi: 2.5, vt: 7},
-    planta16: {nombre: "Ranunculus repens", vi: 2.1, vt: 8},
-    planta17: {nombre: "Rubus constrictus", vi: 2.5, vt: 8},
-    planta18: {nombre: "Rumex conglomeratus", vi: 1.5, vt: 4},
-    planta19: {nombre: "Salix caprea", vi: 1.5, vt: 8},
-    planta20: {nombre: "Salix viminalis", vi: 1.5, vt: 7},
-    planta21: {nombre: "Taraxacum officinale", vi: 1.5 , vt: 6},
-    planta22: {nombre: "Trifolium repens", vi: 2.5, vt: 8},
-    planta23: {nombre: "Veronica anagallis", vi: 1.5, vt: 4},
-    planta24: {nombre: "Nasturtium officinale", vi: 1, vt: 4},
-    planta25: {nombre: "Myriophyllum aquaticum", vi: 1.5, vt: 4},
-    planta26: {nombre: "Ludwigia peploides", vi: 1, vt: 4},
-    planta27: {nombre: "Egeria densa", vi: 1.5, vt: 5},
+    planta1: { nombre: "Agrostis capillaris", vi: 2.5, vt: 8 },
+    planta2: { nombre: "Alga filamentosa", vi: 2, vt: 8 },
+    planta3: { nombre: "Alisma lanceolatum", vi: 2, vt: 5 },
+    planta4: { nombre: "Alnus glutinosa", vi: 2.5, vt: 6 },
+    planta5: { nombre: "Blechnum chilense", vi: 2.5, vt: 8 },
+    planta6: { nombre: "Chusquea quila", vi: 2.5, vt: 8 },
+    planta7: { nombre: "Dactylis glomerata", vi: 2.5, vt: 8 },
+    planta8: { nombre: "Eleocharis radicans", vi: 2.5, vt: 8 },
+    planta9: { nombre: "Equisetum bogotense", vi: 2.5, vt: 8 },
+    planta10: { nombre: "Hydrocotyle sp", vi: 1.5, vt: 4 },
+    planta11: { nombre: "Juncus procerus", vi: 2, vt: 8 },
+    planta12: { nombre: "Lotus pedunculatus", vi: 2.5, vt: 8 },
+    planta13: { nombre: "Plantago lanceolata", vi: 2, vt: 6 },
+    planta14: { nombre: "Plantago major", vi: 2, vt: 6 },
+    planta15: { nombre: "Polygonum hydropiperoides", vi: 2.5, vt: 7 },
+    planta16: { nombre: "Ranunculus repens", vi: 2.1, vt: 8 },
+    planta17: { nombre: "Rubus constrictus", vi: 2.5, vt: 8 },
+    planta18: { nombre: "Rumex conglomeratus", vi: 1.5, vt: 4 },
+    planta19: { nombre: "Salix caprea", vi: 1.5, vt: 8 },
+    planta20: { nombre: "Salix viminalis", vi: 1.5, vt: 7 },
+    planta21: { nombre: "Taraxacum officinale", vi: 1.5, vt: 6 },
+    planta22: { nombre: "Trifolium repens", vi: 2.5, vt: 8 },
+    planta23: { nombre: "Veronica anagallis", vi: 1.5, vt: 4 },
+    planta24: { nombre: "Nasturtium officinale", vi: 1, vt: 4 },
+    planta25: { nombre: "Myriophyllum aquaticum", vi: 1.5, vt: 4 },
+    planta26: { nombre: "Ludwigia peploides", vi: 1, vt: 4 },
+    planta27: { nombre: "Egeria densa", vi: 1.5, vt: 5 },
 };
 
 function WaterPotabilityResultPage() {
@@ -95,7 +95,7 @@ function WaterPotabilityResultPage() {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+        <div className="flex flex-col items-center justify-center min-h-screen bg-base-100">
             {user && (
                 <div className="z-50 fixed w-full bg-base-100">
                     <NavBar user={user} />

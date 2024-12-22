@@ -32,7 +32,7 @@ const Ubicacion = () => {
           region,
           comuna,
         }, { merge: true }); // Merge para no sobreescribir datos existentes
-        
+
         console.log('Datos guardados exitosamente en Firestore.');
         navigate('/', { state: { region, comuna } });
       } catch (error) {
@@ -50,13 +50,13 @@ const Ubicacion = () => {
 
   const comunaOptions = region
     ? regionsData[region].map((comunaName) => ({
-        value: comunaName,
-        label: comunaName,
-      }))
+      value: comunaName,
+      label: comunaName,
+    }))
     : [];
 
   return (
-    <div className="flex justify-center items-center h-screen w-screen">
+    <div className="flex justify-center items-center h-screen w-screen bg-base-100">
       <form onSubmit={handleSubmit} className="bg-base-100 p-6 rounded shadow-md">
         <h2 className="text-center text-2xl mb-4">Selecciona tu ubicación</h2>
 

@@ -67,7 +67,7 @@ function Profile() {
     //console.log(user.photoURL),
     <>
       <NavBar user={user}></NavBar>
-      <div className="pt-24 flex justify-center h-screen w-screen">
+      <div className="pt-24 flex justify-center h-screen w-screen bg-base-100">
         {user ? (
           <div className="mt-24 flex flex-col md:flex-row items-center md:items-start gap-12"> {/* Responsive flex */}
             {/* Columna Izquierda: Información del Usuario */}
