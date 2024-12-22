@@ -83,7 +83,7 @@ function Login() {
 
   return (
     <>
-      <div className="hero h-screen bg-base-200">
+      <div className="hero h-screen bg-base-100">
         <div className="hero-content flex-col lg:flex-row-reverse">
           <div className="text-left lg:text-left">
             <h1 className="text-5xl font-bold">Login</h1>

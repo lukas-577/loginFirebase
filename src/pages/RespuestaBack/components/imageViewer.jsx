@@ -6,14 +6,18 @@ function ImageViewer({ imageUrls }) {
     }, [imageUrls]);
 
     return (
-        <div className="image-container">
+        <div className="grid gap-4 md:grid-cols-2 grid-cols-1">
             {imageUrls.length > 0 ? (
                 imageUrls.map((imageUrl, index) => (
-                    <div key={index} className="flex flex-col items-center mb-4">
+                    <div
+                        key={index}
+                        className={`flex flex-col items-center ${index === 2 ? "md:col-span-2" : ""
+                            }`}
+                    >
                         <img
                             src={imageUrl}
                             alt={`Imagen ${index + 1}`}
-                            className="w-full max-w-md"
+                            className="w-full max-w-md mb-2"
                         />
                     </div>
                 ))

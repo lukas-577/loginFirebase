@@ -14,7 +14,7 @@ function ImageGenerated() {
     }
 
     return (
-        <>
+        <div className='bg-base-100'>
             {/* Navbar */}
             <div className="z-50 fixed w-full bg-base-100">
                 <NavBar user={user}></NavBar>
@@ -26,7 +26,7 @@ function ImageGenerated() {
                 {/* Pasa las URLs de las imágenes al componente ImageViewer */}
                 <ImageViewer imageUrls={imageUrls} />
             </div>
-        </>
+        </div>
     );
 }
 

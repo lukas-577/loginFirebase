@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 import { usePhoto } from '../../context/PhotoContext';
 import { useAuth } from '../../context/AuthContext';
 import NavBar from '../../components/NavBar';
-import { ToastContainer, toast } from 'react-toastify';
 import Alert from '../../components/Alert';
 
 function PhotoReviewPage() {
@@ -95,11 +94,19 @@ function PhotoReviewPage() {
                 </div>
             )}
 
-            <h1 className="text-2xl mb-4">Revisión de fotos</h1>
-            <div className="grid grid-cols-1 gap-4">
+            <h1 className="text-2xl pt-20  ">Revisión de fotos</h1>
+            <div className="grid gap-4 md:grid-cols-2 grid-cols-1">
                 {photos.map((photo, index) => (
-                    <div key={index} className="flex flex-col items-center">
-                        <img src={photo} alt={`Foto ${index + 1}`} className="w-full max-w-md mb-2" />
+                    <div
+                        key={index}
+                        className={`flex flex-col items-center ${index === 2 ? "md:col-span-2" : ""
+                            }`}
+                    >
+                        <img
+                            src={photo}
+                            alt={`Foto ${index + 1}`}
+                            className="w-full max-w-md mb-2"
+                        />
                     </div>
                 ))}
             </div>
@@ -128,14 +135,14 @@ function PhotoReviewPage() {
             <div className="flex space-x-4 mt-4">
                 <button
                     onClick={confirmPhotos}
-                    className="bg-green-500 text-white p-3 rounded-lg shadow-lg"
+                    className="btn btn-success"
                     disabled={loading} // Deshabilitar el botón mientras se está cargando
                 >
                     Confirmar Fotos
                 </button>
                 <button
                     onClick={retakeAllPhotos}
-                    className="bg-red-500 text-white p-3 rounded-lg shadow-lg"
+                    className="btn btn-error"
                     disabled={loading} // Deshabilitar el botón mientras se está cargando
                 >
                     Volver a tomar todas las fotos
