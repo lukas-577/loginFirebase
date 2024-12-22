@@ -4,6 +4,7 @@ import { getFirestore, doc, getDoc, collection, getDocs } from 'firebase/firesto
 import NavBar from '../../components/NavBar';
 import LoadingScreen from '../../components/LoadingScreen';
 import LinesChart from '../../components/LinesChart';
+import ImgProfile from '../../components/ImgProfile';
 
 function Profile() {
   const [user, setUser] = useState(null);
@@ -71,11 +72,7 @@ function Profile() {
           <div className="mt-24 flex flex-col md:flex-row items-center md:items-start gap-12"> {/* Responsive flex */}
             {/* Columna Izquierda: Información del Usuario */}
             <div className="flex flex-col items-center">
-              <img
-                className="rounded-full h-20 w-20"
-                src={user.photoURL}
-                alt={user.displayName}
-              />
+              <ImgProfile user={user} />
               <p className="mt-4">{user.displayName}</p>
               <p className="mt-2">{user.email}</p>
 
