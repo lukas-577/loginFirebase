@@ -31,9 +31,6 @@ export default function NavBar({ user }) {
             </div>
             <div className="flex-none gap-4">
                 <div className="">
-                    <a className="btn btn-ghost text-xl" href='/'>Home</a>
-                </div>
-                <div className="">
                     <ThemeController></ThemeController>
                 </div>
                 <div className="dropdown dropdown-end">
@@ -46,7 +43,6 @@ export default function NavBar({ user }) {
                         <li>
                             <a href='/profile' className="justify-between">
                                 Profile
-                                <span className="badge">New</span>
                             </a>
                         </li>
                         <li><button onClick={handleLogout}>Logout</button></li>
