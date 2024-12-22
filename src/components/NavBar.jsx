@@ -23,6 +23,9 @@ export default function NavBar({ user }) {
     return (
         <div className="fixed top-0 w-full navbar bg-primary text-white shadow-md z-10">
             <div className="flex-1">
+                <div className="w-10 rounded-full">
+                    <img src="../../public/planta.svg" alt="Icap" />
+                </div>
                 <a className="btn btn-ghost text-xl" href='/'>Icap</a>
             </div>
             <div className="flex-none gap-4">
