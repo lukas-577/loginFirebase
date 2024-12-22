@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import planta from '../../public/planta.svg';
 
 
 function ImgProfile({ user }) {
@@ -10,10 +9,10 @@ function ImgProfile({ user }) {
             try {
                 // Simula la carga de la imagen desde Firebase
                 const imageUrl = await user.photoURL;
-                setPhotoURL(imageUrl || planta);
+                setPhotoURL(imageUrl || "/planta.svg)");
             } catch (error) {
                 console.warn('Error al cargar la imagen:', error);
-                setPhotoURL(planta);
+                setPhotoURL("/planta.svg)");
             }
         };
 
@@ -27,7 +26,7 @@ function ImgProfile({ user }) {
                 className="rounded-full h-20 w-20"
                 src={photoURL}
                 alt={user.displayName}
-                onError={(e) => (e.target.src = planta)} // Imagen por defecto si falla la carga
+                onError={(e) => (e.target.src = "/planta.svg)")} // Imagen por defecto si falla la carga
             />
         </div>
     );
