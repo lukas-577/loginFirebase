@@ -56,7 +56,7 @@ const GuardaMiUbicacion = ({ position }) => {
     return (
         <div className="absolute bottom-36 right-4 z-50">
             <button className="btn btn-success" onClick={() => document.getElementById('my_modal_1').showModal()}>
-                <box-icon name='heart'></box-icon>Agregar
+                <box-icon name='location-plus'></box-icon>Nueva estación
             </button>
 
             <dialog id="my_modal_1" className="modal modal-bottom sm:modal-middle">
