@@ -1,13 +1,24 @@
 import React from 'react';
-import { useAuth } from '../../context/AuthContext'; // Importa el hook useAuth
-import { useLocation } from 'react-router-dom';  // Importa el hook useLocation
+import { useAuth } from '../../context/AuthContext';
+import { useLocation, useNavigate } from 'react-router-dom';  // Importa useNavigate
 import ImageViewer from './components/imageViewer';
 import NavBar from '../../components/NavBar';
 
 function ImageGenerated() {
-    const { user } = useAuth();  // Obtén el usuario actual
-    const location = useLocation();  // Usa useLocation para obtener el estado de la ruta
-    const imageUrls = location.state?.imageUrls || [];  // Obtenemos las URLs de las imágenes desde el estado de la ubicación
+    const { user } = useAuth();
+    const location = useLocation();
+    const navigate = useNavigate();  // Instancia de useNavigate
+    const imageUrls = location.state?.imageUrls || [];
+
+    // Simulación de JSON con plantas detectadas automáticamente
+    const detectedPlants = [
+        { id: 'planta1', cantidad: 10 },
+        { id: 'planta26', cantidad: 5 },
+    ];
+
+    const handleNavigate = () => {
+        navigate('/water-potability', { state: { detectedPlants } });
+    };
 
     if (!user) {
         return <div>Por favor, inicia sesión para ver tus imágenes.</div>;
@@ -15,16 +26,23 @@ function ImageGenerated() {
 
     return (
         <div className='bg-base-100'>
-            {/* Navbar */}
             <div className="z-50 fixed w-full bg-base-100">
                 <NavBar user={user}></NavBar>
             </div>
 
-            {/* Contenedor principal con margen superior para evitar que se tape */}
-            <div className="mt-20">  {/* Ajustamos el margen superior */}
+            <div className="mt-20">
                 <h1 className="text-xl text-center">Imagenes procesadas</h1>
-                {/* Pasa las URLs de las imágenes al componente ImageViewer */}
                 <ImageViewer imageUrls={imageUrls} />
+
+                {/* Botón para navegar a la página de Potabilidad */}
+                <div className="flex justify-center mt-6">
+                    <button
+                        onClick={handleNavigate}
+                        className="bg-blue-500 text-white px-4 py-2 rounded-lg"
+                    >
+                        Ver Potabilidad del Agua
+                    </button>
+                </div>
             </div>
         </div>
     );
