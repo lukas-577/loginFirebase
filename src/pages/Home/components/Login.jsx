@@ -7,6 +7,7 @@ import { eye } from 'react-icons-kit/feather/eye';
 import { useAuth } from '../../../context/AuthContext';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../../firebase'; // Importa la configuración de Firestore
+import bgLogin from '../../../assets/bgLogin.svg'; // Asegúrate de tener un SVG para usar como fondo.
 
 function Login() {
   const [user, setUser] = useState({ email: '', password: '' });
@@ -25,29 +26,19 @@ function Login() {
 
   const handleGoogleSignin = async () => {
     try {
-      // Iniciar sesión con Google
       const result = await loginWitchGoogle();
-
-      // Obtener UID del usuario autenticado
       const user = result.user;
-
-      // Referencia al documento del usuario en Firestore
       const userDoc = doc(db, 'users', user.uid);
       const userSnapshot = await getDoc(userDoc);
 
-      // Si el documento existe, verificar si tiene región y comuna
       if (userSnapshot.exists()) {
         const userData = userSnapshot.data();
         if (!userData.region || !userData.comuna) {
-          // Si no tiene región o comuna, redirigir a la vista de selección de ubicación
           navigate('/afiliacion');
         } else {
-          // Si ya tiene región y comuna, redirigir a la página principal
           navigate('/', { state: { region: userData.region, comuna: userData.comuna } });
-
         }
       } else {
-        // Si el usuario no tiene documento, asumir que es nuevo y redirigir a la vista de ubicación
         navigate('/afiliacion');
       }
     } catch (error) {
@@ -83,17 +74,23 @@ function Login() {
 
   return (
     <>
-      <div className="hero h-screen bg-base-100">
-        <div className="hero-content flex-col lg:flex-row-reverse">
+      <div
+        className="relative hero h-screen bg-cover bg-center"
+        style={{
+          backgroundImage: `url(${bgLogin})`,
+        }}
+      >
+        <div className="absolute inset-0 bg-black/30 z-0"></div> {/* Fondo oscuro translúcido */}
+        <div className="hero-content flex-col lg:flex-row-reverse z-10">
           <div className="text-left lg:text-left">
-            <h1 className="text-5xl font-bold">Login</h1>
-            <p className="py-6">
+            <h1 className="text-5xl font-bold text-white">Login</h1>
+            <p className="py-6 text-gray-200">
               Esta aplicación ha sido desarrollada con el objetivo de facilitar el
               monitoreo de la calidad del agua de la cuenca del río Rahue, Osorno,
               Chile (40°34’40’’S; 73°07’05’’O)...
             </p>
           </div>
-          <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+          <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-white/80 backdrop-blur-lg z-10">
             {error && (
               <div role="alert" className="alert alert-error">
                 <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
