@@ -5,6 +5,8 @@ import NavBar from '../../components/NavBar';
 import LoadingScreen from '../../components/LoadingScreen';
 import LinesChart from '../../components/LinesChart';
 import ImgProfile from '../../components/ImgProfile';
+import bgProfileLight from '../../assets/bgProfilePageLight.svg';
+import bgProfileDark from '../../assets/bgProfilePageDark.svg';
 
 function Profile() {
   const [user, setUser] = useState(null);
@@ -12,7 +14,10 @@ function Profile() {
   const [ubicacion, setUbicacion] = useState({ region: '', comuna: '' });
   const [favLocations, setFavLocations] = useState([]); // Estado para almacenar los nombres de ubicaciones favoritas
   const dataFav = favLocations.map((location) => location.nombre);
-  console.log(dataFav);
+
+  const [currentTheme, setCurrentTheme] = useState(
+    document.documentElement.getAttribute("data-theme") || "mytheme"
+  ); // Detecta el tema actual
 
   useEffect(() => {
     const auth = getAuth();
@@ -46,8 +51,6 @@ function Profile() {
             lon: doc.data().lng,
           }));
           setFavLocations(locations);
-          console.log("Ubicaciones favoritas:", locations);
-
         } catch (error) {
           console.error("Error al recuperar la información:", error);
         }
@@ -56,7 +59,18 @@ function Profile() {
       setLoading(false);
     });
 
-    return () => unsubscribe();
+    // Observa cambios en el tema
+    const observer = new MutationObserver(() => {
+      const theme = document.documentElement.getAttribute("data-theme");
+      setCurrentTheme(theme || "mytheme");
+    });
+
+    observer.observe(document.documentElement, { attributes: true });
+
+    return () => {
+      unsubscribe();
+      observer.disconnect();
+    };
   }, []);
 
   if (loading) {
@@ -64,21 +78,25 @@ function Profile() {
   }
 
   return (
-    //console.log(user.photoURL),
     <>
-      <NavBar user={user}></NavBar>
-      <div className="pt-24 flex justify-center h-screen w-screen bg-base-100">
+      <NavBar user={user} />
+      <div
+        className="relative pt-24 flex justify-center h-screen w-screen bg-cover bg-center"
+        style={{
+          backgroundImage: `url(${currentTheme === "darktheme" ? bgProfileDark : bgProfileLight})`,
+        }}
+      >
         {user ? (
-          <div className="mt-24 flex flex-col md:flex-row items-center md:items-start gap-12"> {/* Responsive flex */}
+          <div className="mt-8 flex flex-col md:flex-row items-center md:items-start gap-12">
             {/* Columna Izquierda: Información del Usuario */}
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col items-center bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg p-6 max-w-lg">
               <ImgProfile user={user} />
-              <p className="mt-4">{user.displayName}</p>
-              <p className="mt-2">{user.email}</p>
+              <p className="mt-4 text-lg font-semibold text-gray-800 dark:text-gray-100">{user.displayName}</p>
+              <p className="mt-2 text-gray-600 dark:text-gray-400">{user.email}</p>
 
               {/* Mostrar región y comuna si existen */}
               {ubicacion.region && ubicacion.comuna && (
-                <div className="mt-4">
+                <div className="mt-4 text-gray-700 dark:text-gray-300">
                   <p>
                     <strong>Región:</strong> {ubicacion.region}
                   </p>
@@ -88,12 +106,12 @@ function Profile() {
                 </div>
               )}
 
-              {/* Mostrar solo el nombre de las ubicaciones favoritas si existen */}
+              {/* Mostrar ubicaciones favoritas si existen */}
               {favLocations.length > 0 && (
-                <div className="mt-4">
+                <div className="mt-3 text-gray-700 dark:text-gray-300">
                   <strong>Ubicaciones Favoritas:</strong>
-                  <ul>
-                    {favLocations.map((location, index) => (
+                  <ul className="list-disc list-inside">
+                    {favLocations.slice(0, 4).map((location, index) => (
                       <li key={index}>{location.nombre}</li>
                     ))}
                   </ul>
@@ -102,17 +120,16 @@ function Profile() {
             </div>
 
             {/* Columna Derecha: Gráfico */}
-            <div className="w-full md:w-3/5 flex  items-center justify-center"> {/* Más ancho */}
-              <div className="w-full h-[300px]"> {/* Control del tamaño del gráfico */}
+            <div className="w-full md:w-3/5 flex items-center justify-center">
+              <div className="w-full h-[300px] bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg p-4">
                 <LinesChart dataFav={dataFav} />
               </div>
             </div>
           </div>
         ) : (
-          <p>No has iniciado sesión.</p>
+          <p className="text-gray-700 dark:text-gray-300">No has iniciado sesión.</p>
         )}
       </div>
-
     </>
   );
 }

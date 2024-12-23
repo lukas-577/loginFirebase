@@ -5,6 +5,8 @@ import Camera from '../Camera/components/Camera';
 import { useAuth } from '../../context/AuthContext';
 import NavBar from '../../components/NavBar';
 import 'boxicons';
+import bgCameraPageLight from '../../assets/bgCameraPageLight.svg';
+import bgCameraPageDark from '../../assets/bgCameraPageDark.svg';
 
 function CameraPage() {
     const { user } = useAuth();
@@ -13,6 +15,9 @@ function CameraPage() {
 
     const [showCamera, setShowCamera] = useState(false); // Controla si mostrar la cámara
     const [hasCamera, setHasCamera] = useState(true); // Estado para verificar si hay cámara conectada
+    const [currentTheme, setCurrentTheme] = useState(
+        document.documentElement.getAttribute("data-theme") || "mytheme"
+    ); // Detecta el tema actual
 
     const messages = [
         'Toma la primera foto: debe tomarse a una profundidad < 0,1m (h < 0.1m)',
@@ -36,7 +41,17 @@ function CameraPage() {
         };
 
         checkCamera();
-    }, [])
+
+        // Observa cambios en el tema
+        const observer = new MutationObserver(() => {
+            const theme = document.documentElement.getAttribute("data-theme");
+            setCurrentTheme(theme || "mytheme");
+        });
+
+        observer.observe(document.documentElement, { attributes: true });
+
+        return () => observer.disconnect();
+    }, []);
 
     const handleCapture = (imageSrc) => {
         const newPhotos = [...photos];
@@ -58,28 +73,47 @@ function CameraPage() {
     return (
         <>
             {user && (
-                <div className='z-50 fixed w-full bg-base-100'>
+                <div className="z-50 fixed w-full bg-white shadow-md">
                     <NavBar user={user}></NavBar>
                 </div>
             )}
 
-            <div className="flex flex-col items-center justify-center h-screen">
-                {!hasCamera ? ( // Si no hay cámara, muestra la advertencia
-                    <div className="text-red-500 text-lg"><box-icon name='alarm-exclamation' animation='tada' ></box-icon>
-                        No se detectó ninguna cámara conectada. Conecta una cámara para tomar fotos.
+            <div
+                className="relative flex flex-col items-center justify-center h-screen overflow-hidden bg-cover bg-center"
+                style={{
+                    backgroundImage: `url(${currentTheme === "darktheme" ? bgCameraPageDark : bgCameraPageLight})`
+                }}
+            >
+                {/* Contenido principal */}
+                {!hasCamera ? (
+                    <div className="flex flex-col items-center text-center text-red-600">
+                        <box-icon name="camera-off" size="lg" animation="tada"></box-icon>
+                        <p className="text-lg mt-4">
+                            No se detectó ninguna cámara conectada. Conecta una cámara para tomar fotos.
+                        </p>
                     </div>
-                ) : !showCamera ? ( // Si la cámara no está visible, muestra el mensaje
-                    <div className=''>
-                        <h1 className="text-xl text-dark mb-4">{messages[currentPhotoIndex]}</h1>
-                        <button
-                            onClick={handleShowCamera}
-                            className="bg-blue-500 text-white p-4 rounded-lg shadow-lg"
-                        >
-                            Tomar Foto {currentPhotoIndex + 1}
-                        </button>
+                ) : !showCamera ? (
+                    <div className="flex flex-col items-center text-center">
+                        {/* Recuerdo estilizado */}
+                        <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg p-6 max-w-lg text-center">
+                            <h1 className="text-2xl font-semibold text-gray-800 dark:text-gray-100 mb-4">
+                                {messages[currentPhotoIndex]}
+                            </h1>
+                            <div className="flex justify-center">
+                                <button
+                                    onClick={handleShowCamera}
+                                    className="bg-blue-600 text-white py-3 px-6 rounded-lg shadow-md hover:bg-blue-700 transition-all duration-300 flex items-center"
+                                >
+                                    <box-icon name="camera" color="white"></box-icon>
+                                    <span className="ml-2">Tomar Foto {currentPhotoIndex + 1}</span>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 ) : (
-                    <Camera onCapture={handleCapture} />
+                    <div className="w-full max-w-md">
+                        <Camera onCapture={handleCapture} />
+                    </div>
                 )}
             </div>
         </>

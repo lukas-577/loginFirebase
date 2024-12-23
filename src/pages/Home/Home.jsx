@@ -30,7 +30,7 @@ function Home() {
                     onClick={handleCameraClick}
                     className="btn btn-success"
                 >
-                    <box-icon name='camera' animation='tada' animation-duration='' ></box-icon>Usa la Camara
+                    <box-icon name='camera' animation='tada' ></box-icon>Usa la Camara
                 </button>
             </div>
         </>
