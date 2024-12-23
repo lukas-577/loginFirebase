@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import NavBar from '../../components/NavBar';
 import { useAuth } from '../../context/AuthContext';
+import { useLocation } from 'react-router-dom';
 
 const plantTypes = {
     planta1: { nombre: "Agrostis capillaris", vi: 2.5, vt: 8 },
@@ -33,93 +34,76 @@ const plantTypes = {
 };
 
 function WaterPotabilityResultPage() {
-    const [plantCount, setPlantCount] = useState(0); // Número de plantas detectadas
-    const [plants, setPlants] = useState([]); // Lista dinámica de plantas seleccionadas
+    const { user } = useAuth();
+    const location = useLocation();
+    const detectedPlants = location.state?.detectedPlants || [];
+    const [manualPlants, setManualPlants] = useState([]);
     const [result, setResult] = useState(null);
 
-    const { user } = useAuth();
+    const allPlants = [...detectedPlants, ...manualPlants];
 
-    const handlePlantCountChange = (count) => {
-        const parsedCount = Math.max(0, Number(count));
-        setPlantCount(parsedCount);
+    const handleAddManualPlant = () => {
+        setManualPlants((prev) => [...prev, { id: '', cantidad: 0 }]);
+    };
 
-        // Ajusta la lista de plantas según el número ingresado
-        setPlants((prev) => {
-            const newPlants = [...prev];
-            while (newPlants.length < parsedCount) {
-                newPlants.push({ id: '', cantidad: 0 });
-            }
-            return newPlants.slice(0, parsedCount);
+    const handleManualPlantChange = (index, field, value) => {
+        setManualPlants((prev) => {
+            const updated = [...prev];
+            updated[index][field] = field === 'cantidad' ? Number(value) : value;
+            return updated;
         });
     };
 
-    const handlePlantSelection = (index, field, value) => {
-        setPlants((prev) => {
-            const updatedPlants = [...prev];
-            if (field === 'id') {
-                updatedPlants[index].id = value;
-            } else if (field === 'cantidad') {
-                updatedPlants[index].cantidad = Number(value);
-            }
-            return updatedPlants;
-        });
-    };
-
-    const calculateCoverageValue = (percentage) => {
-        if (percentage < 5) return 1;
-        if (percentage >= 5 && percentage < 50) return 2;
+    const calculateCoverageValue = (quantity) => {
+        if (quantity < 5) return 1;
+        if (quantity >= 5 && quantity < 50) return 2;
         return 3;
     };
 
-    const calculateResult = () => {
-        // Calcula el total de plantas
-        const totalPlants = plants.reduce((acc, plant) => acc + plant.cantidad, 0);
-
+    const calculateICAP = () => {
         let numerator = 0;
         let denominator = 0;
 
-        plants.forEach((plant) => {
+        allPlants.forEach((plant) => {
             const selectedPlant = plantTypes[plant.id];
             if (selectedPlant) {
-                const percentage = (plant.cantidad / totalPlants) * 100;
-                const coverageValue = calculateCoverageValue(percentage);
+                const coverageValue = calculateCoverageValue((plant.cantidad / 3)*100); // Dividimos entre 3
+                const Vi = selectedPlant.vi;
+                const Vti = selectedPlant.vt;
 
-                // Incrementa numerador y denominador
-                numerator += selectedPlant.vi * coverageValue * selectedPlant.vt;
-                denominator += selectedPlant.vi * coverageValue;
+                numerator += Vi * coverageValue * Vti;
+                denominator += Vi * coverageValue;
             }
         });
 
-        const icap = numerator / (denominator || 1); // Evita divisiones por 0
+        const icap = numerator / (denominator || 1);
         setResult(icap.toFixed(2));
     };
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-base-100">
-            {user && (
-                <div className="z-50 fixed w-full bg-base-100">
-                    <NavBar user={user} />
-                </div>
-            )}
+            {user && <NavBar user={user} />}
+            <h1 className="text-xl mb-4">Resultados de Potabilidad del Agua</h1>
 
             <div className="mb-4">
-                <label className="block text-gray-700 mb-2">Cantidad de plantas detectadas:</label>
-                <input
-                    type="number"
-                    value={plantCount}
-                    onChange={(e) => handlePlantCountChange(e.target.value)}
-                    className="input input-bordered w-full max-w-xs"
-                />
+                <h2 className="text-lg font-semibold">Plantas detectadas automáticamente:</h2>
+                <ul>
+                    {detectedPlants.map((plant, index) => (
+                        <li key={index}>
+                            {plantTypes[plant.id]?.nombre || plant.id} - Cantidad: {plant.cantidad}
+                        </li>
+                    ))}
+                </ul>
             </div>
 
             <div className="mb-4">
-                {plants.map((plant, index) => (
-                    <div key={index} className="mb-2">
-                        <label className="block text-gray-700">Planta {index + 1}:</label>
+                <h2 className="text-lg font-semibold">Añadir plantas manualmente:</h2>
+                {manualPlants.map((plant, index) => (
+                    <div key={index} className="flex space-x-4 mt-2">
                         <select
                             value={plant.id}
-                            onChange={(e) => handlePlantSelection(index, 'id', e.target.value)}
-                            className="select select-bordered w-full max-w-xs"
+                            onChange={(e) => handleManualPlantChange(index, 'id', e.target.value)}
+                            className="select select-bordered"
                         >
                             <option value="">Selecciona una planta</option>
                             {Object.entries(plantTypes).map(([key, type]) => (
@@ -132,22 +116,28 @@ function WaterPotabilityResultPage() {
                             type="number"
                             value={plant.cantidad}
                             placeholder="Cantidad"
-                            onChange={(e) => handlePlantSelection(index, 'cantidad', e.target.value)}
-                            className="input input-bordered w-full max-w-xs mt-2"
+                            onChange={(e) => handleManualPlantChange(index, 'cantidad', e.target.value)}
+                            className="input input-bordered"
                         />
                     </div>
                 ))}
+                <button
+                    onClick={handleAddManualPlant}
+                    className="bg-green-500 text-white px-4 py-2 rounded-lg mt-4"
+                >
+                    Añadir planta manualmente
+                </button>
             </div>
 
             <button
-                onClick={calculateResult}
-                className="bg-green-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-green-600"
+                onClick={calculateICAP}
+                className="bg-blue-500 text-white px-4 py-2 rounded-lg mt-4"
             >
-                Calcular
+                Calcular ICAP
             </button>
 
-            {result !== null && (
-                <div className="mt-6 p-4 bg-white shadow-lg rounded-lg">
+            {result && (
+                <div className="mt-6">
                     <h2 className="text-lg font-semibold">Resultado (ICAP):</h2>
                     <p className="text-xl font-bold">{result}</p>
                 </div>
