@@ -83,7 +83,7 @@ function Login() {
         <div className="absolute inset-0 bg-black/30 z-0"></div> {/* Fondo oscuro translúcido */}
         <div className="hero-content flex-col lg:flex-row-reverse z-10">
           <div className="text-left lg:text-left">
-            <h1 className="text-5xl font-bold text-white">Login</h1>
+            <h1 className="text-5xl font-bold text-white">ICAP</h1>
             <p className="py-6 text-gray-200">
               Esta aplicación ha sido desarrollada con el objetivo de facilitar el
               monitoreo de la calidad del agua de la cuenca del río Rahue, Osorno,
@@ -104,14 +104,14 @@ function Login() {
                 <h5 className="text-lg text-center font-bold">Iniciar Sesión</h5>
               </div>
               <div className="form-control mt-5">
-                <input type="email" name="email" placeholder="email" className="input input-bordered" required onChange={handleChange} />
+                <input type="email" name="email" placeholder="Correo electrónico" className="input input-bordered" required onChange={handleChange} />
               </div>
               <div className="form-control">
                 <div className="relative">
                   <input
                     type={type}
                     name="password"
-                    placeholder="password"
+                    placeholder="Contraseña"
                     className="input input-bordered w-full pr-10"
                     required onChange={handleChange}
                   />
