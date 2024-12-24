@@ -28,8 +28,8 @@ const plantTypes = {
     "Trifolium repens": { vi: 2.5, vt: 8 },
     "Veronica anagallis": { vi: 1.5, vt: 4, name: "Veronica_anagallis" },
     "Nasturtium officinale": { vi: 1, vt: 4, name: "Nasturtium_officinale" },
-    "Myriophyllum aquaticum": { vi: 1.5, vt: 4, name: "Myriophyllum aquaticum" },
-    "Ludwigia_peploides": { vi: 1, vt: 4, name: "Ludwigia_peploides" },
+    "Myriophyllum aquaticum": { vi: 1.5, vt: 4, name: "Myriophyllum_aquaticum" },
+    "Ludwigia peploides": { vi: 1, vt: 4, name: "Ludwigia_peploides" },
     "Egeria densa": { vi: 1.5, vt: 5, name: "Egeria_densa" },
 };
 
