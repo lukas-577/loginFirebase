@@ -37,7 +37,8 @@ function PhotoReviewPage() {
             setLoading(true);
             setError(null);
             const urls = [];
-
+            const detectedClasses = []; // Aquí almacenaremos las plantas detectadas
+    
             for (const photo of photos) {
                 const base64String = photo.split(",")[1];
                 const byteCharacters = atob(base64String);
@@ -47,27 +48,30 @@ function PhotoReviewPage() {
                 }
                 const byteArray = new Uint8Array(byteNumbers);
                 const blob = new Blob([byteArray], { type: "image/png" });
-
+    
                 const formData = new FormData();
                 formData.append("file", blob, "photo.png");
-
+    
                 const response = await fetch(`http://localhost:8080/upload-image/${user.uid}`, {
                     method: "POST",
                     body: formData,
                 });
-
+    
                 if (response.ok) {
                     const data = await response.json();
-                    urls.push(data.image_path);
+                    urls.push(data.image_path); // Guardar la URL de la imagen procesada
+                    detectedClasses.push(...data.class_detected); // Guardar las clases detectadas
+                    console.log(detectedClasses);
                 } else {
                     throw new Error("Error al subir la foto");
                 }
             }
-
+    
             setImageUrls(urls);
             setAlert({ type: 'success', message: "Fotos confirmadas y enviadas correctamente." });
+            // Navegar a la siguiente página pasando ambas cosas
             setTimeout(() => {
-                navigate('/image-generada', { state: { imageUrls: urls } });
+                navigate('/image-generada', { state: { imageUrls: urls, classDetected: detectedClasses } });
             }, 3000);
         } catch (error) {
             setError(error.message);
