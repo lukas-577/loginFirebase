@@ -42,6 +42,10 @@ function Register() {
         }
     };
 
+    const handleBack = () => {
+        navigate('/login');
+    };
+
     return (
         <>
             <div
@@ -56,10 +60,10 @@ function Register() {
                     {/* Información de la aplicación */}
                     <div className="card flex-1 max-w-lg w-full shadow-2xl bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg p-6">
                         <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100">
-                            Bienvenido a Macrofitas
+                            Bienvenido a ICAP
                         </h2>
                         <p className="mt-4 text-gray-600 dark:text-gray-300">
-                            Macrofitas es una aplicación web que te permite llevar un control eficiente de tus plantas acuáticas y su entorno. ¡Regístrate ahora para comenzar!
+                            ICAP es una aplicación web que te permite llevar un control eficiente de tus plantas acuáticas y su entorno. ¡Regístrate ahora para comenzar!
                         </p>
                     </div>
 
@@ -123,6 +127,15 @@ function Register() {
                                     type="submit"
                                 >
                                     Registrar
+                                </button>
+                            </div>
+                            <div className="form-control mt-6">
+                                <button
+                                    type="button"
+                                    className="btn bg-red-600 hover:bg-red-700 text-white"
+                                    onClick={handleBack}
+                                >
+                                    Volver
                                 </button>
                             </div>
                         </form>
