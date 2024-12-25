@@ -14,6 +14,7 @@ import Afiliacion from '../pages/Afiliation/Afiliation'
 import Confirmation from '../pages/Home/components/Confirmation'
 import ImageGenerated from '../pages/RespuestaBack/imagenesBack'
 import WaterPotabilityResultPage from '../pages/WaterPotability/WaterPotabilityResultPage'
+import NotFound from '../pages/NotFound'
 
 
 const router = createBrowserRouter([
@@ -92,7 +93,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "*",
-                element: <h1>Not Found</h1>
+                element: <NotFound></NotFound>
             }
         ]
     }
