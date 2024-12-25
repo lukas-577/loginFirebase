@@ -38,7 +38,7 @@ export default function LinesChart({ dataFav }) {
     const borderColor = isDark ? 'rgb(255, 255, 255)' : 'rgb(100, 68, 39)';
     const backgroundColor = isDark ? 'rgba(255, 255, 255, 0.2)' : 'rgba(100, 68, 39, 0.5)';
     const pointColor = isDark ? 'rgb(255, 255, 255)' : 'rgb(100, 68, 39)';
-    const labelColor = isDark ? '#fff' : '#fff'; // Color de la leyenda (etiqueta "Icap")
+    const labelColor = isDark ? '#fff' : '#00000'; // Color de la leyenda (etiqueta "Icap")
 
     const data = {
         labels: dataFav,
@@ -62,12 +62,12 @@ export default function LinesChart({ dataFav }) {
             y: {
                 beginAtZero: true,
                 ticks: {
-                    color: isDark ? '#fff' : '#fff', // Color de los ticks del eje Y
+                    color: isDark ? '#fff' : '#00000', // Color de los ticks del eje Y
                 },
             },
             x: {
                 ticks: {
-                    color: isDark ? '#fff' : '#fff', // Color de los ticks del eje X
+                    color: isDark ? '#fff' : '#00000', // Color de los ticks del eje X
                 },
             },
         },
