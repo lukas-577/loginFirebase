@@ -63,21 +63,21 @@ function Camera({ onCapture }) {
     return (
         <div className="flex flex-col items-center">
             <video ref={videoRef} autoPlay playsInline className="w-full max-w-md" />
-            <button 
-                onClick={takePhoto} 
+            <button
+                onClick={takePhoto}
                 className="bg-blue-500 text-white p-3 rounded-lg shadow-lg mt-4"
             >
                 Tomar Foto
             </button>
-            
-            {devices.length > 1 && (
-                <button 
-                    onClick={toggleCamera} 
-                    className="bg-gray-500 text-white p-3 rounded-lg shadow-lg mt-4"
-                >
-                    Cambiar Cámara
-                </button>
-            )}
+
+            (
+            <button
+                onClick={toggleCamera}
+                className="bg-gray-500 text-white p-3 rounded-lg shadow-lg mt-4"
+            >
+                Cambiar Cámara
+            </button>
+            )
 
             <p className="text-white mt-2">
                 Cámara actual: {devices[currentDeviceIndex]?.label || `Cámara ${currentDeviceIndex + 1}`}

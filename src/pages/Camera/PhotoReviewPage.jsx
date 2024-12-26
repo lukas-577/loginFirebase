@@ -125,7 +125,7 @@ function PhotoReviewPage() {
             {loading && (
                 <div className="flex items-center justify-center mt-4">
                     <div className="animate-spin rounded-full border-t-4 border-blue-500 h-10 w-10"></div>
-                    <span className="ml-2">Cargando...</span>
+                    <span className="ml-2 text-white">Cargando...</span>
                 </div>
             )}
 
