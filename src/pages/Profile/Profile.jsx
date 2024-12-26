@@ -125,6 +125,9 @@ function Profile() {
                 <LinesChart dataFav={dataFav} />
               </div>
             </div>
+            <div className="mt-3 text-gray-700 dark:text-gray-300">
+              <img src="/indice.png" alt="" />
+            </div>
           </div>
         ) : (
           <p className="text-gray-700 dark:text-gray-300">No has iniciado sesión.</p>
