@@ -24,15 +24,6 @@ function Home() {
             <div className="w-full z-0">
                 <Maps></Maps>
             </div>
-
-            <div className="fixed bottom-0 right-0 m-5">
-                <button
-                    onClick={handleCameraClick}
-                    className="btn btn-success"
-                >
-                    <box-icon name='camera' animation='tada' ></box-icon>Usa la Camara
-                </button>
-            </div>
         </>
 
     )

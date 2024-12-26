@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import 'boxicons';
 import { getFirestore, collection, doc, setDoc } from 'firebase/firestore';
 import { useAuth } from '../../../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const GuardaMiUbicacion = ({ position }) => {
     const { user } = useAuth();
     const db = getFirestore();
+    const navigate = useNavigate();
     const [locationName, setLocationName] = useState('');
     const [showSnackbar, setShowSnackbar] = useState(false);
     const [snackbarVisible, setSnackbarVisible] = useState(false); // Estado para manejar la visibilidad gradual
@@ -38,8 +40,14 @@ const GuardaMiUbicacion = ({ position }) => {
             // Mostrar snackbar y luego ocultarlo gradualmente
             setShowSnackbar(true);
             setSnackbarVisible(true);
-            setTimeout(() => setSnackbarVisible(false), 2500); // Inicia el desvanecimiento después de 2.5 segundos
-            setTimeout(() => setShowSnackbar(false), 3000); // Oculta completamente después de 3 segundos
+            // Ocultar snackbar gradualmente y redirigir
+            setTimeout(() => {
+                setSnackbarVisible(false);
+                setTimeout(() => {
+                    setShowSnackbar(false);
+                    navigate('/camera'); // Redirige a la página deseada
+                }, 500); // Espera que el snackbar desaparezca visualmente
+            }, 2500);
         } catch (error) {
             console.error("Error al guardar la ubicación:", error);
         }
@@ -54,7 +62,7 @@ const GuardaMiUbicacion = ({ position }) => {
     };
 
     return (
-        <div className="absolute bottom-36 right-4 z-50">
+        <div className="absolute bottom-4 right-4 z-50">
             <button className="btn btn-success" onClick={() => document.getElementById('my_modal_1').showModal()}>
                 <box-icon name='location-plus'></box-icon>Nueva estación
             </button>
