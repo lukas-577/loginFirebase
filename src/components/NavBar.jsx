@@ -42,10 +42,10 @@ export default function NavBar({ user }) {
                     <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-primary rounded-box w-52">
                         <li>
                             <a href='/profile' className="justify-between">
-                                Profile
+                                Perfil
                             </a>
                         </li>
-                        <li><button onClick={handleLogout}>Logout</button></li>
+                        <li><button onClick={handleLogout}>Cerrar Sesión</button></li>
                     </ul>
                 </div>
             </div>

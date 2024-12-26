@@ -79,7 +79,7 @@ function Camera({ onCapture }) {
                 </button>
             )}
 
-            <p className="text-gray-700 mt-2">
+            <p className="text-white mt-2">
                 Cámara actual: {devices[currentDeviceIndex]?.label || `Cámara ${currentDeviceIndex + 1}`}
             </p>
         </div>
