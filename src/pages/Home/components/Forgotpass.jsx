@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../../context/AuthContext'
 import { useNavigate } from 'react-router-dom';
+import bgLogin from '../../../assets/bgLogin.svg';
 
 function ForgotPassword() {
   const [email, setEmail] = useState('');
@@ -27,7 +28,8 @@ function ForgotPassword() {
   };
 
   return (
-    <div className="hero h-screen bg-base-200">
+    <div className="hero h-screen bg-base-200"
+    style={{backgroundImage: `url(${bgLogin})`}}>
       <div className="hero-content flex-col lg:flex-row-reverse">
         <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
           {error && <div role="alert" className="alert alert-error"><span>{error}</span></div>}
@@ -40,7 +42,7 @@ function ForgotPassword() {
               <input
                 type="email"
                 name="email"
-                placeholder="email"
+                placeholder="Coreo Electrónico"
                 className="input input-bordered"
                 required
                 value={email}
