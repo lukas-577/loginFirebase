@@ -42,7 +42,7 @@ function ForgotPassword() {
               <input
                 type="email"
                 name="email"
-                placeholder="Coreo Electrónico"
+                placeholder="Correo Electrónico"
                 className="input input-bordered"
                 required
                 value={email}
