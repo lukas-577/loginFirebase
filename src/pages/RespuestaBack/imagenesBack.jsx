@@ -56,7 +56,7 @@ function ImageGenerated() {
             </div>
 
             {/* Contenedor principal */}
-            <div className="mt-20 p-4">
+            <div className="mt-16 p-4">
                 {/* Título principal */}
                 <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg p-6 max-w-4xl mx-auto text-center">
                     <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100">
