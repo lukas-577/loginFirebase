@@ -153,23 +153,6 @@ function PhotoReviewPage() {
                     Volver a tomar todas las fotos
                 </button>
             </div>
-
-            {imageUrls.length > 0 && (
-                <div className="mt-6">
-                    <h2 className="text-xl text-gray-800 dark:text-white">Imágenes procesadas</h2>
-                    <div className="grid grid-cols-1 gap-4 mt-4">
-                        {imageUrls.map((imageUrl, index) => (
-                            <div key={index} className="flex flex-col items-center">
-                                <img
-                                    src={imageUrl}
-                                    alt={`Imagen procesada ${index + 1}`}
-                                    className="w-full max-w-md mb-2 shadow-md rounded-lg"
-                                />
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            )}
         </div>
     );
 }
