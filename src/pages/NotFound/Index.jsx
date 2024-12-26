@@ -1,6 +1,8 @@
+import bgLogin from '../../assets/bgLogin.svg';
 function NotFound() {
     return (
-        <div className="content-center flex items-center justify-center min-h-screen bg-base-100">
+        <div className="content-center flex items-center justify-center min-h-screen bg-base-100"
+        style={{backgroundImage: `url(${bgLogin})`}}>
             <div className="flex flex-col items-center justify-center px-5 mx-auto space-y-8 text-center sm:max-w-md">
                 {/* Ícono estilizado */}
                 <box-icon
