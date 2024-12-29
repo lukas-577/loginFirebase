@@ -4,6 +4,9 @@ import { useAuth } from '../../context/AuthContext';
 import { useLocation } from 'react-router-dom';
 import bgCameraPageLight from '../../assets/bgCameraPageLight.svg';
 import bgCameraPageDark from '../../assets/bgCameraPageDark.svg';
+import { query, orderBy, limit, getFirestore, doc, collection, setDoc,getDocs,updateDoc } from 'firebase/firestore';
+
+const db = getFirestore(); 
 
 const plantTypes = {
     "Agrostis capillaris": { vi: 2.5, vt: 8, name: "A_capillaris" },
@@ -126,8 +129,52 @@ function WaterPotabilityResultPage() {
         if (denominator > 0) {
             const icap = numerator / denominator;
             setResult(icap.toFixed(2));
+            saveResultToFirestore(icap.toFixed(2));
         } else {
             setResult("Error: Datos insuficientes");
+        }
+    };
+    const saveResultToFirestore = async (icapResult) => {
+        if (!user) {
+            console.error("Usuario no autenticado");
+            return;
+        }
+
+        const resultData = {
+            icap: icapResult,
+            plants: allPlants,
+            date: new Date().toISOString(),
+        };
+
+        try {
+            // Referencia a la colección 'locations' del usuario
+            const userDocRef = doc(db, 'users', user.uid);
+            const locationsCollectionRef = collection(userDocRef, 'locations');
+            
+            // Consulta para obtener el último documento agregado basado en 'date'
+            const locationsQuery = query(locationsCollectionRef, orderBy('date', 'desc'), limit(1));
+            const querySnapshot = await getDocs(locationsQuery);
+    
+            if (querySnapshot.empty) {
+                console.error("No se encontraron estaciones en la colección 'locations'.");
+                return;
+            }
+    
+            // Obtener el ID del último documento (última estación)
+            const lastLocationDoc = querySnapshot.docs[0];
+            const lastLocationId = lastLocationDoc.id;
+    
+            console.log("Última estación encontrada con ID:", lastLocationId);
+    
+            // Actualizar el documento de la estación con el resultado ICAP
+            const locationDocRef = doc(locationsCollectionRef, lastLocationId);
+            await updateDoc(locationDocRef, {
+                icap: icapResult, // Agregar el campo ICAP
+            });
+    
+            console.log("Resultado ICAP guardado exitosamente dentro de la estación:", lastLocationId);
+        } catch (error) {
+            console.error("Error al guardar el resultado ICAP en Firestore:", error);
         }
     };
 

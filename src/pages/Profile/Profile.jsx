@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { getFirestore, doc, getDoc, collection, getDocs } from 'firebase/firestore';
+import { getFirestore, doc, getDoc, collection, getDocs, query, orderBy, limit } from 'firebase/firestore';
 import NavBar from '../../components/NavBar';
 import LoadingScreen from '../../components/LoadingScreen';
 import LinesChart from '../../components/LinesChart';
@@ -14,6 +14,7 @@ function Profile() {
   const [ubicacion, setUbicacion] = useState({ region: '', comuna: '' });
   const [favLocations, setFavLocations] = useState([]); // Estado para almacenar los nombres de ubicaciones favoritas
   const dataFav = favLocations.map((location) => location.nombre);
+  const icapValues = favLocations.map((location) => location.icap);
 
   const [currentTheme, setCurrentTheme] = useState(
     document.documentElement.getAttribute("data-theme") || "mytheme"
@@ -42,13 +43,16 @@ function Profile() {
 
           // Obtener los nombres de ubicaciones favoritas en la subcolección 'locations'
           const locationsCollectionRef = collection(userRef, 'locations');
-          const locationsSnapshot = await getDocs(locationsCollectionRef);
+          const locationsQuery = query(locationsCollectionRef, orderBy('date', 'desc'), limit(4));
+          const locationsSnapshot = await getDocs(locationsQuery);
 
           // Extraer y almacenar solo el nombre de cada ubicación en el estado `favLocations`
           const locations = locationsSnapshot.docs.map((doc) => ({
             nombre: doc.data().nombre,
+            icap: doc.data().icap,
             lat: doc.data().lat,
             lon: doc.data().lng,
+
           }));
           setFavLocations(locations);
         } catch (error) {
@@ -122,7 +126,7 @@ function Profile() {
             {/* Columna Derecha: Gráfico */}
             <div className="w-full md:w-3/5 flex items-center justify-center">
               <div className="w-full h-[300px] bg-white/80 dark:bg-gray-800/80 backdrop-blur-lg border border-gray-200 dark:border-gray-700 rounded-xl shadow-lg p-4">
-                <LinesChart dataFav={dataFav} />
+                <LinesChart dataFav={dataFav} icapValues={icapValues} />
               </div>
             </div>
             <div className="mt-3 text-gray-700 dark:text-gray-300">

@@ -17,7 +17,7 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, T
 
 const Icap = [6, 1, 4, 8, 3, 2, 2, 8, 7, 6, 5, 4, 3, 2, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-export default function LinesChart({ dataFav }) {
+export default function LinesChart({ dataFav, icapValues }) {
     const [isDark, setIsDark] = useState(
         document.documentElement.getAttribute("data-theme") === "darktheme"
     );
@@ -35,7 +35,7 @@ export default function LinesChart({ dataFav }) {
     }, []);
 
     // Generar colores dinámicos para los puntos según el valor de Icap
-    const pointColors = Icap.map((value) => {
+    const pointColors =icapValues.map((value) => {
         if (value < 2) return isDark ? 'rgb(255, 0, 0)' : 'rgb(200, 0, 0)'; // Rojo
         if (value <= 2 && value < 3.6) return isDark ? 'rgb(250, 154, 104)' : 'rgb(250, 154, 104)'; // Naranja claro
         if (value <= 3.6 && value < 5.2) return isDark ? 'rgb(252, 255, 155)' : 'rgb(252, 255, 155)'; // Amarillo claro
@@ -54,7 +54,7 @@ export default function LinesChart({ dataFav }) {
         datasets: [
             {
                 label: 'Icap',
-                data: Icap,
+                data: icapValues,
                 tension: 0.5,
                 fill: true,
                 borderColor: borderColor,
