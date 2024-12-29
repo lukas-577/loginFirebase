@@ -10,7 +10,7 @@ function ImgProfile({ user }) {
             setPhotoURL("/planta.svg"); // Si no existe la URL de la foto, se usa la imagen predeterminada
         }
     }, [user?.photoURL]); // Solo se ejecuta cuando `user` cambia
-    console.log(user?.photoURL);
+    //console.log(user?.photoURL);
 
     return (
         <div>

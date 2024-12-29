@@ -45,7 +45,6 @@ function WaterPotabilityResultPage() {
     const [groupedPlants, setGroupedPlants] = useState({});
     const [manualPlants, setManualPlants] = useState([]);
     const [result, setResult] = useState(null);
-    const [allPlants, setAllPlants] = useState([]);
 
     const [currentTheme, setCurrentTheme] = useState(
         document.documentElement.getAttribute("data-theme") || "mytheme"
@@ -73,18 +72,10 @@ function WaterPotabilityResultPage() {
         return () => observer.disconnect();
     }, [classDetected]);
 
-    useEffect(() => {
-        const updatedPlants = [
-            ...Object.entries(groupedPlants).map(([name, cantidad]) => ({ name, cantidad })),
-            ...manualPlants,
-        ];
-        setAllPlants(updatedPlants); // Usa la función para actualizar el estado
-    }, [groupedPlants]);
-
-    const removePlant = (plantName) => {
-        setAllPlants((prevPlants) => prevPlants.filter((plant) => plant.name !== plantName));
-    };
-
+    const allPlants = [
+        ...Object.entries(groupedPlants).map(([name, cantidad]) => ({ name, cantidad })),
+        ...manualPlants,
+    ];
 
     const handleAddManualPlant = () => {
         setManualPlants((prev) => [...prev, { name: '', cantidad: '' }]);
@@ -203,15 +194,9 @@ function WaterPotabilityResultPage() {
                 <div className="mb-6">
                     <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100">Plantas detectadas automáticamente:</h2>
                     <ul className="list-disc list-inside text-gray-700 dark:text-gray-300 mt-2">
-                        {allPlants.map((plant, index) => (
-                            <li key={index} className="flex items-center space-x-4 my-2">
-                                <span>{plant.name}: {plant.cantidad}</span>
-                                <button
-                                    onClick={() => removePlant(plant.name)}
-                                    className="btn btn-error px-4 py-2 rounded-lg"
-                                >
-                                    Eliminar
-                                </button>
+                        {Object.entries(groupedPlants).map(([name, cantidad], index) => (
+                            <li key={index}>
+                                {name}: {cantidad}
                             </li>
                         ))}
                     </ul>
@@ -221,7 +206,7 @@ function WaterPotabilityResultPage() {
                     <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100">Añadir plantas manualmente:</h2>
                     <button
                         onClick={handleAddManualPlant}
-                        className="btn btn-success px-4 py-2 rounded-lg mt-4"
+                        className="bg-green-500 text-white px-4 py-2 rounded-lg mt-4"
                     >
                         Añadir planta
                     </button>
@@ -248,7 +233,7 @@ function WaterPotabilityResultPage() {
                             />
                             <button
                                 onClick={() => handleRemoveManualPlant(index)}
-                                className="btn btn-error px-4 py-2 rounded-lg"
+                                className="bg-red-500 text-white px-4 py-2 rounded-lg"
                             >
                                 Eliminar
                             </button>
@@ -260,7 +245,7 @@ function WaterPotabilityResultPage() {
                 <div className="text-center">
                     <button
                         onClick={calculateICAP}
-                        className="btn btn-info px-6 py-2 rounded-lg "
+                        className="bg-blue-500 text-white px-6 py-2 rounded-lg "
                     >
                         Calcular ICAP
                     </button>
