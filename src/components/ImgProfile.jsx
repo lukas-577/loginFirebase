@@ -1,28 +1,16 @@
 import { useState, useEffect } from 'react';
 
 function ImgProfile({ user }) {
-    const [photoURL, setPhotoURL] = useState("");
-    console.log(user);
+    const [photoURL, setPhotoURL] = useState("/planta.svg"); // Imagen predeterminada desde el principio
 
     useEffect(() => {
-        if (!user || !user.photoURL) {
-            setPhotoURL("/planta.svg"); // Imagen predeterminada si no hay usuario o URL de foto
-            return;
+        if (user?.photoURL) {
+            setPhotoURL(user.photoURL); // Si existe la URL de la foto, se actualiza el estado
+        } else {
+            setPhotoURL("/planta.svg"); // Si no existe la URL de la foto, se usa la imagen predeterminada
         }
-
-        const loadProfileImage = async () => {
-            try {
-                // Carga de la imagen desde la URL proporcionada por el usuario
-                const imageUrl = user.photoURL;
-                setPhotoURL(imageUrl || "/planta.svg");
-            } catch (error) {
-                console.warn('Error al cargar la imagen:', error);
-                setPhotoURL("/planta.svg"); // Imagen predeterminada si ocurre un error
-            }
-        };
-
-        loadProfileImage();
-    }, [user]);
+    }, [user?.photoURL]); // Solo se ejecuta cuando `user` cambia
+    console.log(user?.photoURL);
 
     return (
         <div>
@@ -37,4 +25,5 @@ function ImgProfile({ user }) {
 }
 
 export default ImgProfile;
+
 

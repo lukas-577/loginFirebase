@@ -4,9 +4,9 @@ import { useAuth } from '../../context/AuthContext';
 import { useLocation } from 'react-router-dom';
 import bgCameraPageLight from '../../assets/bgCameraPageLight.svg';
 import bgCameraPageDark from '../../assets/bgCameraPageDark.svg';
-import { query, orderBy, limit, getFirestore, doc, collection, setDoc,getDocs,updateDoc } from 'firebase/firestore';
+import { query, orderBy, limit, getFirestore, doc, collection, setDoc, getDocs, updateDoc } from 'firebase/firestore';
 
-const db = getFirestore(); 
+const db = getFirestore();
 
 const plantTypes = {
     "Agrostis capillaris": { vi: 2.5, vt: 8, name: "A_capillaris" },
@@ -31,7 +31,7 @@ const plantTypes = {
     "Salix viminalis": { vi: 1.5, vt: 7 },
     "Taraxacum officinale": { vi: 1.5, vt: 6 },
     "Trifolium repens": { vi: 2.5, vt: 8 },
-    "Veronica anagallis": { vi: 1.5, vt: 4, name: "Veronica_anagallis_aquaticum" },
+    "Veronica anagallis": { vi: 1.5, vt: 4, name: "Veronica_Anagallis_aquaticum" },
     "Nasturtium officinale": { vi: 1, vt: 4, name: "Nasturtium_officinale" },
     "Myriophyllum aquaticum": { vi: 1.5, vt: 4, name: "Myriophyllum_aquaticum" },
     "Ludwigia peploides": { vi: 1, vt: 4, name: "Ludwigia_peploides" },
@@ -45,6 +45,7 @@ function WaterPotabilityResultPage() {
     const [groupedPlants, setGroupedPlants] = useState({});
     const [manualPlants, setManualPlants] = useState([]);
     const [result, setResult] = useState(null);
+    const [allPlants, setAllPlants] = useState([]);
 
     const [currentTheme, setCurrentTheme] = useState(
         document.documentElement.getAttribute("data-theme") || "mytheme"
@@ -72,10 +73,18 @@ function WaterPotabilityResultPage() {
         return () => observer.disconnect();
     }, [classDetected]);
 
-    const allPlants = [
-        ...Object.entries(groupedPlants).map(([name, cantidad]) => ({ name, cantidad })),
-        ...manualPlants,
-    ];
+    useEffect(() => {
+        const updatedPlants = [
+            ...Object.entries(groupedPlants).map(([name, cantidad]) => ({ name, cantidad })),
+            ...manualPlants,
+        ];
+        setAllPlants(updatedPlants); // Usa la función para actualizar el estado
+    }, [groupedPlants]);
+
+    const removePlant = (plantName) => {
+        setAllPlants((prevPlants) => prevPlants.filter((plant) => plant.name !== plantName));
+    };
+
 
     const handleAddManualPlant = () => {
         setManualPlants((prev) => [...prev, { name: '', cantidad: '' }]);
@@ -150,28 +159,28 @@ function WaterPotabilityResultPage() {
             // Referencia a la colección 'locations' del usuario
             const userDocRef = doc(db, 'users', user.uid);
             const locationsCollectionRef = collection(userDocRef, 'locations');
-            
+
             // Consulta para obtener el último documento agregado basado en 'date'
             const locationsQuery = query(locationsCollectionRef, orderBy('date', 'desc'), limit(1));
             const querySnapshot = await getDocs(locationsQuery);
-    
+
             if (querySnapshot.empty) {
                 console.error("No se encontraron estaciones en la colección 'locations'.");
                 return;
             }
-    
+
             // Obtener el ID del último documento (última estación)
             const lastLocationDoc = querySnapshot.docs[0];
             const lastLocationId = lastLocationDoc.id;
-    
+
             console.log("Última estación encontrada con ID:", lastLocationId);
-    
+
             // Actualizar el documento de la estación con el resultado ICAP
             const locationDocRef = doc(locationsCollectionRef, lastLocationId);
             await updateDoc(locationDocRef, {
                 icap: icapResult, // Agregar el campo ICAP
             });
-    
+
             console.log("Resultado ICAP guardado exitosamente dentro de la estación:", lastLocationId);
         } catch (error) {
             console.error("Error al guardar el resultado ICAP en Firestore:", error);
@@ -194,9 +203,15 @@ function WaterPotabilityResultPage() {
                 <div className="mb-6">
                     <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100">Plantas detectadas automáticamente:</h2>
                     <ul className="list-disc list-inside text-gray-700 dark:text-gray-300 mt-2">
-                        {Object.entries(groupedPlants).map(([name, cantidad], index) => (
-                            <li key={index}>
-                                {name}: {cantidad}
+                        {allPlants.map((plant, index) => (
+                            <li key={index} className="flex items-center space-x-4 my-2">
+                                <span>{plant.name}: {plant.cantidad}</span>
+                                <button
+                                    onClick={() => removePlant(plant.name)}
+                                    className="btn btn-error px-4 py-2 rounded-lg"
+                                >
+                                    Eliminar
+                                </button>
                             </li>
                         ))}
                     </ul>
@@ -206,12 +221,12 @@ function WaterPotabilityResultPage() {
                     <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100">Añadir plantas manualmente:</h2>
                     <button
                         onClick={handleAddManualPlant}
-                        className="bg-green-500 text-white px-4 py-2 rounded-lg mt-4"
+                        className="btn btn-success px-4 py-2 rounded-lg mt-4"
                     >
                         Añadir planta
                     </button>
                     {manualPlants.map((plant, index) => (
-                        <div key={index} className="flex space-x-4 mt-2 items-center">
+                        <div key={index} className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 mt-2 items-center">
                             <select
                                 value={plant.name}
                                 onChange={(e) => handleManualPlantChange(index, 'name', e.target.value)}
@@ -233,19 +248,19 @@ function WaterPotabilityResultPage() {
                             />
                             <button
                                 onClick={() => handleRemoveManualPlant(index)}
-                                className="bg-red-500 text-white px-4 py-2 rounded-lg"
+                                className="btn btn-error px-4 py-2 rounded-lg"
                             >
                                 Eliminar
                             </button>
                         </div>
                     ))}
-                    
+
                 </div>
 
                 <div className="text-center">
                     <button
                         onClick={calculateICAP}
-                        className="bg-blue-500 text-white px-6 py-2 rounded-lg "
+                        className="btn btn-info px-6 py-2 rounded-lg "
                     >
                         Calcular ICAP
                     </button>
