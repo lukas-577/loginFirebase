@@ -12,7 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Create Firebase credentials file
-        run: echo "${{ secrets.FIREBASE_CREDENTIALS }}" > credentials.json
+        run: echo "${{ secrets.FIREBASE_CREDENTIALS }}" | base64 --decode > credentials.json
       - run: npm ci && npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
