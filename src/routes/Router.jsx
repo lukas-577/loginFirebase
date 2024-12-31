@@ -14,7 +14,7 @@ import Afiliacion from '../pages/Afiliation/Afiliation'
 import Confirmation from '../pages/Home/components/Confirmation'
 import ImageGenerated from '../pages/RespuestaBack/imagenesBack'
 import WaterPotabilityResultPage from '../pages/WaterPotability/WaterPotabilityResultPage'
-import NotFound from '../pages/NotFound'
+import NotFound from '../pages/NotFound/Index'
 
 
 const router = createBrowserRouter([
