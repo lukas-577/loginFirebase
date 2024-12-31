@@ -37,9 +37,9 @@ export default function LinesChart({ dataFav, icapValues }) {
     // Generar colores dinámicos para los puntos según el valor de Icap
     const pointColors =icapValues.map((value) => {
         if (value < 2) return isDark ? 'rgb(255, 0, 0)' : 'rgb(200, 0, 0)'; // Rojo
-        if (value <= 2 && value < 3.6) return isDark ? 'rgb(250, 154, 104)' : 'rgb(250, 154, 104)'; // Naranja claro
-        if (value <= 3.6 && value < 5.2) return isDark ? 'rgb(252, 255, 155)' : 'rgb(252, 255, 155)'; // Amarillo claro
-        if (value <= 5.2 && value < 6.9) return isDark ? 'rgb(145, 209, 83)' : 'rgb(145, 209, 83)'; // Verde claro
+        if (value >= 2 && value < 3.6) return isDark ? 'rgb(250, 154, 104)' : 'rgb(250, 154, 104)'; // Naranja claro
+        if (value >= 3.6 && value < 5.2) return isDark ? 'rgb(252, 255, 155)' : 'rgb(252, 255, 155)'; // Amarillo claro
+        if (value >= 5.2 && value < 6.9) return isDark ? 'rgb(145, 209, 83)' : 'rgb(145, 209, 83)'; // Verde claro
         return isDark ? 'rgb(165, 159, 254)' : 'rgb(165, 159, 254)'; // Azul claro
     });
 
