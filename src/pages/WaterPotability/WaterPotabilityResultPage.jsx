@@ -42,6 +42,7 @@ function WaterPotabilityResultPage() {
     const { user } = useAuth();
     const location = useLocation();
     const classDetected = location.state?.classDetected || [];
+    const [allPlants, setAllPlants] = useState([]);
     const [groupedPlants, setGroupedPlants] = useState({});
     const [manualPlants, setManualPlants] = useState([]);
     const [result, setResult] = useState(null);
@@ -60,6 +61,13 @@ function WaterPotabilityResultPage() {
             }
             return acc;
         }, {});
+
+        const updatedPlants = [
+            ...Object.entries(groupedPlants).map(([name, cantidad]) => ({ name, cantidad })),
+            ...manualPlants,
+        ];
+        setAllPlants(updatedPlants);
+
         setGroupedPlants(grouped);
 
         const observer = new MutationObserver(() => {
@@ -70,12 +78,18 @@ function WaterPotabilityResultPage() {
         observer.observe(document.documentElement, { attributes: true });
 
         return () => observer.disconnect();
-    }, [classDetected]);
+    }, [manualPlants]);
 
-    const allPlants = [
-        ...Object.entries(groupedPlants).map(([name, cantidad]) => ({ name, cantidad })),
-        ...manualPlants,
-    ];
+    const removePlant = (plantName) => {
+
+        setAllPlants((prevPlants) => prevPlants.filter((plant) => plant.name !== plantName));
+        setGroupedPlants((prev) => {
+            const updatedGroupedPlants = { ...prev };
+            delete updatedGroupedPlants[plantName];
+            return updatedGroupedPlants;
+        });
+    };
+
 
     const handleAddManualPlant = () => {
         setManualPlants((prev) => [...prev, { name: '', cantidad: '' }]);
@@ -114,6 +128,7 @@ function WaterPotabilityResultPage() {
 
         allPlants.forEach((plant) => {
             const selectedPlant = plantTypes[plant.name];
+            console.log("selectedPlant", selectedPlant);
             if (selectedPlant) {
                 const coverageValue = calculateCoverageValue((plant.cantidad / 3) * 100);
                 const Vi = selectedPlant.vi;
@@ -195,8 +210,14 @@ function WaterPotabilityResultPage() {
                     <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100">Plantas detectadas automáticamente:</h2>
                     <ul className="list-disc list-inside text-gray-700 dark:text-gray-300 mt-2">
                         {Object.entries(groupedPlants).map(([name, cantidad], index) => (
-                            <li key={index}>
-                                {name}: {cantidad}
+                            <li key={index} className="flex items-center space-x-4 my-2">
+                                <span>{name}: {cantidad}</span>
+                                <button
+                                    onClick={() => removePlant(name)}
+                                    className="btn btn-error px-4 py-2 rounded-lg"
+                                >
+                                    Eliminar
+                                </button>
                             </li>
                         ))}
                     </ul>
