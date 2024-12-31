@@ -5,12 +5,14 @@ name: Deploy to Firebase Hosting on PR
 on:
   push:
     branches:
-      - m # por el momento lo dejare silenciado para que no se ejecute en cada push debe ser main
+      - deploy # por el momento lo dejare silenciado para que no se ejecute en cada push debe ser main
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - name: Create Firebase credentials file
+        run: echo "${{ secrets.FIREBASE_CREDENTIALS }}" > ./credentials.json
       - run: npm ci && npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
