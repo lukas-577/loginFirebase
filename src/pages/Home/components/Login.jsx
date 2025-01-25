@@ -85,9 +85,12 @@ function Login() {
           <div className="text-left lg:text-left">
             <h1 className="text-5xl font-bold text-white">ICAP</h1>
             <p className="py-6 text-gray-200">
-              Esta aplicación ha sido desarrollada con el objetivo de facilitar el
-              monitoreo de la calidad del agua de la cuenca del río Rahue, Osorno,
-              Chile (40°34’40’’S; 73°07’05’’O)...
+            El ICAP es una aplicación que permite calcular el Índice de Calidad de Agua de
+            Plantas acuáticas. Está orientada a profesionales o técnicos del área de las
+            ciencias ambientales pertenecientes a organizaciones públicas o privadas que
+            tengan interés en el monitoreo de la calidad del agua y/o en la ecología de las
+            plantas acuáticas. Como requisito básico para su correcto uso requiere que los
+            usuarios estén habituados a manipular aplicaciones tecnológicas.
             </p>
           </div>
           <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-white/80 backdrop-blur-lg z-10">

@@ -63,7 +63,8 @@ function Register() {
                             Bienvenido a ICAP
                         </h2>
                         <p className="mt-4 text-gray-600 dark:text-gray-300">
-                            ICAP es una aplicación web que te permite llevar un control eficiente de tus plantas acuáticas y su entorno. ¡Regístrate ahora para comenzar!
+                        El ICAP es una aplicación web que permite llevar un registro de la calidad del
+                        agua de él o los sitios que te interesan. ¡Regístrate ahora para comenzar!
                         </p>
                     </div>
 

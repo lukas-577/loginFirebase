@@ -80,7 +80,7 @@ const GuardaMiUbicacion = ({ position }) => {
                         <input
                             required
                             type="text"
-                            placeholder="Nombre de la ubicación"
+                            placeholder="Nombre de la estación"
                             className="input input-bordered input-success w-full max-w-xs"
                             value={locationName}
                             onChange={(e) => setLocationName(e.target.value)}
