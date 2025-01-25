@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Select from 'react-select';
-import bgAfiliacion from '../../assets/bgLogin.svg'; // Asegúrate de tener un SVG como fondo.
+import bgAfiliacion from '../../assets/bgLogin.jpeg'; // Asegúrate de tener un SVG como fondo.
 
 const Afiliacion = () => {
   const [organizacion, setOrganizacion] = useState('');

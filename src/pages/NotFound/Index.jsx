@@ -1,4 +1,4 @@
-import bgLogin from '../../assets/bgLogin.svg';
+import bgLogin from '../../assets/bgLogin.jpeg';
 function NotFound() {
     return (
         <div className="content-center flex items-center justify-center min-h-screen bg-base-100"

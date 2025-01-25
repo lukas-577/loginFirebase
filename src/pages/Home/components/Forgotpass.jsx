@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../../context/AuthContext'
 import { useNavigate } from 'react-router-dom';
-import bgLogin from '../../../assets/bgLogin.svg';
+import bgLogin from '../../../assets/bgLogin.jpeg';
 
 function ForgotPassword() {
   const [email, setEmail] = useState('');

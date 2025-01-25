@@ -1,5 +1,5 @@
 import React from 'react';
-import bgLogin from '../../../assets/bgLogin.svg';
+import bgLogin from '../../../assets/bgLogin.jpeg';
 import { useNavigate } from 'react-router-dom';
 
 function Confirmation() {

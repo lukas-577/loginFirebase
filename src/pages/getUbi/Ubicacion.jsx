@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { getFirestore, doc, setDoc } from 'firebase/firestore'; // Importar Firestore
 import { getAuth } from 'firebase/auth'; // Importar Auth
 import regionsData from './regionsData.json'; // Asegúrate de que este archivo está en la ruta correcta
-import bgUbicacion from '../../assets/bgLogin.svg'; // Fondo SVG
+import bgUbicacion from '../../assets/bgLogin.jpeg'; // Fondo SVG
 
 const Ubicacion = () => {
   const [region, setRegion] = useState('');

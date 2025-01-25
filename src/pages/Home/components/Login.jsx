@@ -7,7 +7,7 @@ import { eye } from 'react-icons-kit/feather/eye';
 import { useAuth } from '../../../context/AuthContext';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../../../firebase'; // Importa la configuración de Firestore
-import bgLogin from '../../../assets/bgLogin.svg'; // Asegúrate de tener un SVG para usar como fondo.
+import bgLogin from '../../../assets/bgLogin.jpeg'; // Asegúrate de tener un SVG para usar como fondo.
 
 function Login() {
   const [user, setUser] = useState({ email: '', password: '' });
