@@ -21,7 +21,7 @@ function Login() {
     setUser({
       ...user,
       [name]: value
-    });
+    }); 
   };
 
   const handleGoogleSignin = async () => {
