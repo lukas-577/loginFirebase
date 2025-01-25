@@ -250,13 +250,23 @@ function WaterPotabilityResultPage() {
                                     </option>
                                 ))}
                             </select>
-                            <input
-                                type="number"
-                                value={plant.cantidad}
-                                placeholder="Cantidad"
-                                onChange={(e) => handleManualPlantChange(index, 'cantidad', e.target.value)}
-                                className="input input-bordered"
-                            />
+                            <div className="flex items-center">
+                                <div className="tooltip" data-tip="Porcentaje que ocupa planta de la superficie captada en la
+fotografía.">
+                                    <box-icon
+                                        name="info-circle"
+                                        className="mr-2 text-primary"
+                                        size="sm"
+                                    ></box-icon>
+                                </div>
+                                <input
+                                    type="number"
+                                    value={plant.cantidad}
+                                    placeholder="Cantidad"
+                                    onChange={(e) => handleManualPlantChange(index, 'cantidad', e.target.value)}
+                                    className="input input-bordered"
+                                />
+                            </div>
                             <button
                                 onClick={() => handleRemoveManualPlant(index)}
                                 className="bg-red-500 text-white px-4 py-2 rounded-lg"
