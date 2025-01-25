@@ -20,9 +20,9 @@ function CameraPage() {
     ); // Detecta el tema actual
 
     const messages = [
-        'Toma la primera foto: debe tomarse a una profundidad < 0,1m (h < 0.1m)',
-        'Toma la segunda foto: debe tomarse a una profundidad mayor e igual a 0.1m e inferior a 0.5m (0.1 ≤ h < 0.5m)',
-        'Toma la tercera foto: debe tomarse a una profundidad mayor e igual a 0.5m (0.5m ≤ h)'
+        'La primera fotografía debe ser tomada en la ribera del río en un sector húmedo o poco inundado, con una altura de agua inferior a 10 cm (h < 10 cm). Si no hay presencia de plantas presionar “siguiente”.',
+        'La segunda fotografía debe ser tomada en la ribera del río en un sector poco inundado, con una altura de agua que no supere los 50 cm (h < 50 cm). Si no hay presencia de plantas presionar “siguiente”.',
+        'La tercera fotografía debe ser tomada dentro del río en un dónde la altura de agua sea mayor a 50 cm (h > 50 cm). Si no hay presencia de plantas presionar “siguiente”.'
     ];
 
     useEffect(() => {
