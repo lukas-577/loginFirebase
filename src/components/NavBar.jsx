@@ -39,6 +39,7 @@ export default function NavBar({ user }) {
                             <ImgProfile user={user} />
                         </div>
                     </div>
+                    <box-icon name='chevron-down'></box-icon>
                     <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-primary rounded-box w-52">
                         <li>
                             <a href='/profile' className="justify-between">
