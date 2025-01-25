@@ -12,10 +12,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Create Firebase credentials file
-        run: echo "${{ secrets.FIREBASE_CREDENTIALS }}" > ./credentials.json
+        run: echo "${{ secrets.FIREBASE_CREDENTIALS }}" | base64 --decode > credentials.json
+      - name: Check credentials.json
+        run: cat credentials.json
       - run: npm ci && npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_MACROFITAS_8BBAA }}
           projectId: macrofitas-8bbaa
+          channelId: live

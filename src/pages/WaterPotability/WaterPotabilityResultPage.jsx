@@ -126,9 +126,14 @@ function WaterPotabilityResultPage() {
         let numerator = 0;
         let denominator = 0;
 
-        allPlants.forEach((plant) => {
+        // Combinar plantas automáticas y manuales en una sola lista
+        const combinedPlants = [
+            ...Object.entries(groupedPlants).map(([name, cantidad]) => ({ name, cantidad })),
+            ...manualPlants.filter(plant => plant.name && plant.cantidad), // Filtrar plantas manuales válidas
+        ];
+
+        combinedPlants.forEach((plant) => {
             const selectedPlant = plantTypes[plant.name];
-            console.log("selectedPlant", selectedPlant);
             if (selectedPlant) {
                 const coverageValue = calculateCoverageValue((plant.cantidad / 3) * 100);
                 const Vi = selectedPlant.vi;
